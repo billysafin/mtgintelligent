@@ -1,0 +1,113 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+<div class="spacing-bottom bg-white">
+  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <div class="spacing-bottom bg-white">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>{{body.credit}}</h3>
+          <ul>
+            <li>{{body.credit_text_1}}</li>
+            <li>{{body.credit_text_2}}</li>
+            <li>{{body.credit_text_3}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="spacing-bottom bg-white">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>{{body.crawler}}</h3>
+          <ul>
+            <li>{{body.crawl_text_1}}</li>
+            <li>{{body.crawl_text_2}}</li>
+            <li>{{body.crawl_text_3}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="spacing-bottom bg-white">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>{{body.profile}}</h3>
+          <ul>
+            <li>{{body.profile_text_1}}</li>
+            <li class="no_dots">{{body.profile_text_2}}</li>
+            <li class="no_dots">
+              <ul class="no_dots pl12px">
+                <li>{{body.profile_text_3}}</li>
+                <li>{{body.profile_text_4}}</li>
+                <li>{{body.profile_text_5}}</li>
+                <li>{{body.profile_text_6}}</li>
+                <li>{{body.profile_text_7}}</li>
+              </ul>
+              <div class="boxContainer">
+                <div class="box non-clickable">
+                  <a href="//www.facebook.com/billy.safin" target="_blank" class="non-clickable">
+                    <image id="facebook-icon" alt="facebook" src="{{url_for('static', filename='images/f-ogo_RGB_HEX-58.png')}}" />
+                  </a>
+                </div>
+                <div class="box non-clickable">
+                  <a href="//www.linkedin.com/in/naoto-aranami-a2b38311b/" target="_blank" class="non-clickable">
+                    <image id="linkedin-icon" alt="facebook" src="{{url_for('static', filename='images/In-2C-54px-R.png')}}" />
+                  </a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="spacing-bottom bg-white">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>{{body.coming_soon}}</h3>
+          <ul>
+            <li>
+              {{body.coming_soon_1}}
+            </li>
+            <li>
+              {{body.coming_soon_2}}
+            </li>
+            <li>
+              {{body.coming_soon_3}}
+            </li>
+            <li>
+              {{body.coming_soon_4}}
+            </li>
+            <li>
+              {{body.coming_soon_5}}
+            </li>
+            <li>
+              {{body.coming_soon_6}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="spacing-bottom bg-white">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>{{body.contact}}</h3>
+          <ul>
+            <li>
+              {{body.contact_text_1}}
+              <a id="mail" href="mailto:{{body.contact_text_2}}">
+                {{body.contact_text_2}}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="spacing-bottom bg-white">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>{{body.wizards}}</h3>
+          <ul><li><p>{{body.w_copy_rights}}</p></li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

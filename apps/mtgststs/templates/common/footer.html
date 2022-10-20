@@ -1,0 +1,29 @@
+{%- block footer -%}
+  <p id="pageTop"><a href="#"><em class="fa fa-chevron-up"></em></a></p>
+  <div class="footer">
+    <div class="inline-box">
+      <ul class="list-inline">
+        <li>
+          <a href="/{{lang}}/about/">
+            {{footer.about}}
+          </a>
+        </li>
+        <li>
+          <a id="mail" href="mailto:{{footer.contact_address}}" class="clickable">
+            {{footer.contact}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="dropup inline-box float-right">
+      <a class="non-clickable btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{footer.lang_switch}}
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        {%- for lang in langs -%}
+          <a class="dropdown-item" href="/{{lang}}/{{request.path | re_sub('^/[a-z]{2}/', '')}}?{{request.query_string.decode('utf-8')}}">{{footer[lang]}}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

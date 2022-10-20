@@ -1,0 +1,70 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+<div class="spacing-bottom bg-white">
+  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <div class="thumbnail">
+      <h4>{{body.modern}}</h4>
+    </div> 
+  </div>
+  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <div class="thumbnail">
+      <h5>{{body.current_meta}}</h5>
+      <div id="pieDivmodern" class="chartdiv"></div>
+      <div>
+        <h5>{{body.top_five_decks}}</h5>
+        <table class="table table-striped table-hover">
+          <colgroup>
+            <col width="60%">
+            <col width="20%">
+            <col width="10%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>{{body.deck_name}}</th>
+              <th>{{body.total_number_played_deck}}</th>
+              <th>{{body.percent_played_deck}}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {%- for each in top_five -%}
+            <tr href="/{{lang}}/deck_detail/?act=dert&did={{each.id}}" click-type="1">
+              <td>{{each.deck_name}}</td>
+              <td>{{each.total_number}}</td>
+              <td>{{each.total_percent}}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <div class ="to_right">
+          <a href="/{{lang}}/constructed_modern/?act=stats&did=all&fd=all&td=all">{{body.all_stats}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="thumbnail">
+      <table class="table table-striped table-hover">
+        <colgroup>
+          <col width="30%">
+          <col width="70%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>{{body.date}}</th>
+            <th>{{body.tournament}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {%- for each in modern -%}
+          <tr href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}" click-type="1">
+            <td>{{each.date}}</td>
+            <td>{{each.name | truncate(100)}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class ="to_right">
+        <a href="/{{lang}}/tournament_list/?act=const&for=2">{{body.modern}}{{body.all_articles}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

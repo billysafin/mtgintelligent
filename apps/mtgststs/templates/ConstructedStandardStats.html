@@ -1,0 +1,22 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+<div class="spacing-bottom bg-white">
+  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <div class="thumbnail">
+      <a href="/{{lang}}/constructed_standard/">
+        <h4>{{body.standard}}</h4>
+      </a>
+    </div>
+    <div class="thumbnail">
+      <h5>{{body.current_meta}}</h5>
+      <div id="pieDivstandard" class="pieChartDiv"></div>
+    </div>
+    <div id="decklist" class="thumbnail" style="display:none;">
+      <div id="decklistTable" class="row table-margin-custom"></div>
+    </div>
+    <div class="thumbnail">
+      <div id="serialDivstandard" class="serialChartDiv"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

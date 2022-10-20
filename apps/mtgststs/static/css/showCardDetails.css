@@ -1,0 +1,14 @@
+div.tooltip {  
+    width:      250px;  
+    position:   absolute;  
+    left:       -9999px;  
+    background: #EEE;  
+    padding:    5px;  
+    border:     1px solid #AAA;  
+}  
+  
+div.tooltip img{  
+    color:      #FFF;  
+    background: #222;  
+    padding:    5px 10px;  
+}

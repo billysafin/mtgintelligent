@@ -1,0 +1,99 @@
+{%- block menu -%}
+<div class="to_right float-right mb12">
+  {%- include "./common/api_2.html" -%}
+</div>
+<div class="navbar navbar-default navbar-static-top clear-both"
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+        <span class="sr-only"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/{{lang}}/" class="brand_logo_header navbar-brand clickable show-on-smp-inline" header="header">
+        <img alt="brand" class="brand_logo_header" src="{{'static/images/site_logo_with_title.png'|versioned}}" />
+      </a>
+    </div>
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="/{{lang}}/">{{menus.top}}</a>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+            {{menus.articles}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu w100">
+            <li class="w100">
+              <form id="form-smp-en" action="/{{lang}}/general_articles/?act=past_list&sub=seach" method="post" class="form-inline sub-menu-form">
+                <div class="form-group spacing-bottom clear_both w100">
+                  <select data-form="form-smp-en" name="sites" class="site-selector w100">
+                    <option value="" country_id="" class="sites_op">
+                      {{sub_menus.english}}
+                    </option>
+                    {%- for each in all_article_sites.en -%}
+                      <option value="{{each.id}}" country_id="{{each.country_id}}" class="sites_op">
+                        {{each.site_name}}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </form>
+            </li>
+            <li class="w100">
+              <form id="form-smp-jp" action="/{{lang}}/general_articles/?act=past_list&sub=seach" method="post" class="form-inline sub-menu-form">
+                <div class="form-group spacing-bottom clear_both w100">
+                  <select data-form="form-smp-jp" name="sites" class="site-selector w100">
+                    <option value="" country_id="" class="sites_op">
+                      {{sub_menus.japanese}}
+                    </option>
+                    {%- for each in all_article_sites.jp -%}
+                      <option value="{{each.id}}" country_id="{{each.country_id}}" class="sites_op">
+                        {{each.site_name}}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </form>
+            </li>
+            <li><a href="/{{lang}}/general_articles/">{{sub_menus.general}}</a></li>
+            <li><a href="/{{lang}}/general_articles/?act=past_list">{{sub_menus.pastarticles}}</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+            {{menus.results}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/{{lang}}/constructed/">{{sub_menus.formats}}</a></li>
+            <li><a href="/{{lang}}/constructed_standard/">{{sub_menus.standard}}</a></li>
+            <li><a href="/{{lang}}/constructed_modern/">{{sub_menus.modern}}</a></li>
+            <li><a href="/{{lang}}/constructed_legacy/">{{sub_menus.legacy}}</a></li>
+            <li><a href="/{{lang}}/constructed_vintage/">{{sub_menus.vintage}}</a></li>
+            <!--<li><a href="/{{lang}}/other_formats/">{{sub_menus.others}}</a></li>-->
+          </ul>
+        </li>
+        <li>
+          
+        </li>
+      </ul>
+      <!-- //future development
+      <form role="search" class="navbar-form navbar-left">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" placeholder="Search" class="form-control">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">{{menus.search}}</button>
+            </span>
+          </div>
+        </div>    
+      </form>
+      -->
+    </div>
+  </div>
+</div>
+{% endblock %}

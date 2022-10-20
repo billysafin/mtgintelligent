@@ -1,0 +1,144 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+<div class="spacing-bottom bg-white">
+  <center><h4>{{deck_title}}</h4></center>
+  
+  <div class="col-xs-12 col-md-12 col-sm-12">
+    <div class="col-xs-12 col-md-4 col-sm-12 ml-12">
+      <table class="table">
+        <thead>
+          <tr class="non-clickable">
+            <th class="non-clickable">{{body.date}}</th>
+            <th class="non-clickable">{{body.amount}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for data in amount_by_date -%}
+            <tr class="non-clickable">
+              <th class="non-clickable">{{data.date}}</th>
+              <td class="non-clickable">{{data.count}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div  id="smallchart" class="col-xs-12 col-md-6 col-sm-12 ml-12"></div>
+  </div>
+  <div class="col-xs-12 col-md-12 col-sm-12 mt12">
+    <p>
+      <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      <a id="showHideStats" class="non-clickable">{{body.see_the_most_played_cards}}</a>
+    </p>
+  </div>
+  <div id="stats" class="col-xs-12 col-md-12 col-sm-12" style="display:none;">
+    <div class="dotted-bottom">
+      <h4>{{body.main}}</h4>
+      {%- for tc in top_cards_played_main -%}
+        {%- if loop.index == 1 or (loop.index - 1) % 4 == 0 -%} 
+          <div class="row">
+        {% endif %}
+          <a  href="{{tc.url}}" direction-to="outer-site">
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+              <div class="thumbnail">
+                <div>
+                  <img class="deck_cards" src="{{conoha_url}}{{tc.image_name}}" alt="{{tc.card_name}}"> 
+                  <div class="spacing-top">
+                    <b>{{"%.2f"|format(tc.player_count / tc.total_players * 100)}}</b>{{body.percent_of}}{{body.main}}{{body.connection}}<b>{{tc.amount}}</b>{{body.how_many}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        {%- if loop.index % 4 == 0 -%} 
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div>
+      <h4>{{body.side}}</h4>
+      {%- for tc in top_cards_played_side -%}
+        {%- if loop.index == 1 or (loop.index - 1) % 4 == 0 -%} 
+          <div class="row">
+        {% endif %}
+          <a  href="{{tc.url}}" direction-to="outer-site">
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+              <div class="thumbnail">
+                <div>
+                  <img class="deck_cards" src="{{conoha_url}}{{tc.image_name}}" alt="{{tc.card_name}}"> 
+                  <div class="spacing-top">
+                    <b>{{"%.2f"|format(tc.player_count / tc.total_players * 100)}}</b>{{body.percent_of}}{{body.side}}{{body.connection}}<b>{{tc.amount}}</b>{{body.how_many}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        {%- if loop.index % 4 == 0 -%} 
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-12 col-sm-12">
+    {%- for eachCard in deck_lists -%}
+      <div id="decklist" class="thumbnail">
+        <center>
+          <b>{{eachCard.date}} : {{eachCard.player_name}}</b>
+        </center>
+        <div id="decklistTable" class="row table-margin-custom">
+          <div class="col-xs-12 col-md-4 col-sm-4 ml-12">
+            {%- for lands in eachCard.decklist.mainLands -%}
+              {{lands.amount}}
+              <a title="{{conoha_url}}{{lands.image_name}}" href="{{lands.card_url}}" target="_blank" class="clickable showCard">
+                {{lands.card_name or lands.card_name_en}}
+              </a>
+              <br />
+            {% endfor %}
+            <hr style="margin:0em;margin-bottom:-1em;" width="100%" align="left">
+            <br />
+            <p>Total:&nbsp;&nbsp;{{eachCard.decklist.mainLandsTotal}}&nbsp;&nbsp;Cards</p>
+            <br />
+            {%- for Creatures in eachCard.decklist.mainCreatures -%}
+              {{Creatures.amount}}
+              <a title="{{conoha_url}}{{Creatures.image_name}}" href="{{Creatures.card_url}}" target="_blank" class="clickable showCard">
+                {{Creatures.card_name or Creatures.card_name_en}}
+              </a>
+              <br />
+            {% endfor %}
+            <hr style="margin:0em;margin-bottom:-1em;" width="100%" align="left">
+            <br />
+            <p>Total:&nbsp;&nbsp;{{eachCard.decklist.mainCreaturesTotal}}&nbsp;&nbsp;Cards</p>
+            <br />
+          </div>
+          <div class="col-xs-12 col-md-4 col-sm-4 ml-12">
+            {%- for Spells in eachCard.decklist.mainSpells -%}
+              {{Spells.amount}}
+              <a title="{{conoha_url}}{{Spells.image_name}}" href="{{Spells.card_url}}" target="_blank" class="clickable showCard">
+                {{Spells.card_name or Spells.card_name_en}}
+              </a>
+              <br />
+            {% endfor %}
+            <hr style="margin:0em;margin-bottom:-1em;" width="100%" align="left">
+            <br />
+            <p>Total:&nbsp;&nbsp;{{eachCard.decklist.mainSpellsTotal}}&nbsp;&nbsp;Cards</p>
+            <br />
+          </div>
+          <div class="col-xs-12 col-md-4 col-sm-4 ml-12">
+            {%- for sideBoard in eachCard.decklist.sideBoard -%}
+              {{sideBoard.amount}}
+              <a title="{{conoha_url}}{{sideBoard.image_name}}" href="{{sideBoard.card_url}}" target="_blank" class="clickable showCard">
+                {{sideBoard.card_name or sideBoard.card_name_en}}
+              </a>
+              <br />
+            {% endfor %}
+            <hr style="margin:0em;margin-bottom:-1em;" width="100%" align="left">
+            <br />
+            <p>Total:&nbsp;&nbsp;{{eachCard.decklist.sideboardTotal}}&nbsp;&nbsp;Cards</p>
+            <br />
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <nav class="to_right">{{pagination.links}}</nav>
+</div>
+{% endblock %}

@@ -1,0 +1,183 @@
+#past-article–search-big {
+  display: none;
+  padding: 1em;
+  margin-top: 0.5em;
+}
+
+#past-article–search-small {
+  display: none;
+  padding: 1em;
+  margin-top: 0.5em;
+}
+
+.row {
+    margin: 12px auto;
+}
+
+.sites_logo {
+    max-width: 240px !important;
+    max-height: 65px !important;
+    min-width: 187.5px;
+    min-height: 53.6px !important;
+}
+
+.lang_flag {
+    margin-right:12px;
+}
+
+.h3-title {
+    margin-bottom: 30px;
+}
+
+.article-source {
+    text-align: right;
+}
+
+.small-menu {
+    display: none;
+}
+
+.datetimer {
+    border: solid 1px !important;
+}
+
+#past-article–search-small {
+    display: none;
+}
+
+#past-search-small {
+    display: none;
+}
+
+@media (max-width: 320px) {
+    .small-menu {
+        display: block;
+    }
+    .big-menu {
+        display: none;
+    }
+}
+
+@media (min-width: 320px) {
+    .sites_logo {
+        min-width: 160px !important;
+    }
+}
+
+@media screen and (mix-width: 672px) {
+    #past-search-small {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 672px) {
+    #past-search-small {
+        display: block;
+    }
+    
+    #past-search-big {
+        display: none;
+    }
+    
+    #past-article–search-big {
+        display: none;
+    }
+    
+    .checkbox {
+        display: inline-block !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        vertical-align: middle !important;
+    }
+    
+    #date-to-label {
+        margin-right: 0px !important;
+    }
+    
+    .datetimer {
+        width: 100px;
+    }
+    
+    .fsize-10 {
+        font-size: 10px;
+    }
+    
+    .inline {
+        display: inline;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .checkbox {
+        display: inline-block !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        vertical-align: middle !important;
+        padding-bottom: 0px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .articles-panel {
+        height: 234px;
+    } 
+}
+
+@media (min-width: 992px) {
+    .articles-panel {
+        height: 286px;
+    } 
+}
+
+@media screen and (min-width: 1200px) {
+    .sites_logo {
+        width: 187.5px !important;
+        height: 53.6px !important;
+    }
+    .articles-panel {
+        height: 330px;
+    }
+    
+    .h3-title {
+        height: 168px;
+    }
+}
+
+.checkbox {
+  margin-right: 0.5em;
+  padding-bottom: 12px;
+}
+
+#past-search {
+  background: #337ab7;
+}
+
+#calender {
+  margin: 0 auto;
+}
+
+.spacing-right {
+  margin-right: 3em;
+}
+
+#sites {
+  width: 100%;
+}
+
+#date-to-label {
+  margin-right: 1.5em;
+}
+
+.ui-datepicker {
+  background: #333;
+  border: 1px solid #555;
+  color: #EEE;
+}
+
+.ui-datepicker-header {
+  background: #1c9bf3;
+}
+
+.sql_limit {
+  background: #1c9bf3;
+}

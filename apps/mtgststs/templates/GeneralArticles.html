@@ -1,0 +1,100 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+<div class="spacing-bottom bg-white">
+  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <ul class="nav nav-tabs no-bottom big-menu">
+      <li class="{% if active_tab == 'all' %}active{% endif %}"><a class="index_tabs" href="#all" data-toggle="tab">{{body.all}}</a></li>
+      <li class="{% if active_tab == 'jp' %}active{% endif %}"><a class="index_tabs" href="#japanese" data-toggle="tab">{{body.japanese}}</a></li>
+      <li class="{% if active_tab == 'en' %}active{% endif %}"><a class="index_tabs" href="#english" data-toggle="tab">{{body.english}}</a></li>
+    </ul>
+    <ul class="nav nav-tabs no-bottom small-menu">
+      <li class="{% if active_tab == 'all' %}active{% endif %}"><a class="index_tabs" href="#all" data-toggle="tab">{{body.all_small}}</a></li>
+      <li class="{% if active_tab == 'jp' %}active{% endif %}"><a class="index_tabs" href="#japanese" data-toggle="tab">{{body.japanese_small}}</a></li>
+      <li class="{% if active_tab == 'en' %}active{% endif %}"><a class="index_tabs" href="#english" data-toggle="tab">{{body.english_small}}</a></li>
+    </ul>
+    <div class="thumbnail spacing-bottom-normal bg-white">
+      <div id="tabContent" class="tab-content">
+        <div class="tab-pane {% if active_tab == 'all' %}active{% endif %}" id="all">
+          {%- for each in news -%}
+            {%- if loop.index == 1 or (loop.index - 1) %4 == 0 -%} 
+              <div class="row">
+            {% endif %}
+            <a  click-type="1" href="{{each.link}}" direction-to="outer-site">
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                <div class="thumbnail articles-panel" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                  <img class="sites_logo" src="{{url_for('static', filename='images/site_logos/' + each.image)}}" alt="{{body.source}}" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                  <div class="caption word-wrap">
+                    <h3 class="h3-title" click-type="1" href="{{each.link}}" direction-to="outer-site">{{each.title | truncate(30)}}</h3>
+                    <p class="article-source" click-type="1" href="{{each.link}}" direction-to="outer-site"> 
+                      <img class="lang_flag" src="{{url_for('static', filename='images/national_flags/' + each.prefix + '.png')}}"  click-type="1" href="{{each.link}}" direction-to="outer-site"/>
+                      {{each.published}}
+                    </p>
+                    <p class="article-source" click-type="1" href="{{each.link}}" direction-to="outer-site">{{each.source_from}}</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {%- if loop.index %4 == 0 -%} 
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="tab-pane {% if active_tab == 'jp' %}active{% endif %}" id="japanese">
+          {%- for each in news_jp -%}
+            {%- if loop.index == 1 or (loop.index - 1) %4 == 0 -%} 
+              <div class="row">
+            {% endif %} 
+            <a  click-type="1" href="{{each.link}}" direction-to="outer-site">
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                <div class="thumbnail articles-panel" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                  <img class="sites_logo" src="{{url_for('static', filename='images/site_logos/' + each.image)}}" alt="{{body.source}}" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                  <div class="caption word-wrap">
+                    <h3 class="h3-title" click-type="1" href="{{each.link}}" direction-to="outer-site">{{each.title | truncate(30)}}</h3>
+                    <p class="article-source" click-type="1" href="{{each.link}}" direction-to="outer-site"> 
+                      <img class="lang_flag" src="{{url_for('static', filename='images/national_flags/' + each.prefix + '.png')}}"  click-type="1" href="{{each.link}}" direction-to="outer-site"/>
+                      {{each.published}}
+                    </p>
+                    <p class="article-source" click-type="1" href="{{each.link}}" direction-to="outer-site">{{each.source_from}}</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {%- if loop.index %4 == 0 -%} 
+              </div>
+            {% endif %} 
+          {% endfor %}
+        </div>
+        <div class="tab-pane {% if active_tab == 'en' %}active{% endif %}" id="english">
+          {%- for each in news_en -%}
+            {%- if loop.index == 1 or (loop.index - 1) %4 == 0 -%} 
+              <div class="row">
+            {% endif %}
+            <a  click-type="1" href="{{each.link}}" direction-to="outer-site">
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                <div class="thumbnail articles-panel" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                  <img class="sites_logo" src="{{url_for('static', filename='images/site_logos/' + each.image)}}" alt="{{body.source}}" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                  <div class="caption word-wrap">
+                    <h3 class="h3-title" click-type="1" href="{{each.link}}" direction-to="outer-site">{{each.title | truncate(60)}}</h3>
+                    <p class="article-source" click-type="1" href="{{each.link}}" direction-to="outer-site"> 
+                      <img class="lang_flag" src="{{url_for('static', filename='images/national_flags/' + each.prefix + '.png')}}"  click-type="1" href="{{each.link}}" direction-to="outer-site"/>
+                      {{each.published}}
+                    </p>
+                    <p class="article-source" click-type="1" href="{{each.link}}" direction-to="outer-site">{{each.source_from}}</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {%- if loop.index %4 == 0 -%} 
+              </div>
+            {% endif %} 
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clear_all"></div>
+  <div class ="to_right pd15">
+    <a id="to_past" class="btn btn-default" role="button" href="/{{lang}}/general_articles/?act=past_list">{{body.to_past}}</a>
+  </div>
+</div>
+{% endblock %}

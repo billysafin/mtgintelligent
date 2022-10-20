@@ -1,0 +1,10 @@
+#tour–search {
+    display:   none;
+    padding:   1em;
+   margin-top: 0.5em;
+}
+
+#tour_keywords_input {
+    width:       50%;
+    margin-left: 6px;
+}

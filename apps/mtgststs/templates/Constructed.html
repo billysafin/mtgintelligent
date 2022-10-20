@@ -1,0 +1,129 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+<div class="spacing-bottom bg-white">
+  <div class="col-sm-12 col-md-6 col-xs-12 col-lg-6">
+    <div class="thumbnail">
+      <a href="/{{lang}}/constructed_standard/">
+        <h4>{{body.standard}}</h4>
+      </a>
+      <div id="chartDivstandard" class="chartdiv"></div>
+      <table class="table table-striped table-hover">
+        <colgroup>
+          <col width="30%">
+          <col width="70%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>{{body.date}}</th>
+            <th>{{body.tournament}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {%- for each in standard -%}
+          <tr href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}" click-type="1">
+            <td href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}">{{each.date}}</td>
+            <td href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}">{{each.name | truncate(35)}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class ="to_right">
+        <a href="/{{lang}}/constructed_standard/">{{body.standard_details}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-xs-12 col-lg-6">
+    <div class="thumbnail">
+      <a href="/{{lang}}/constructed/?act=modern">
+        <h4>{{body.modern}}</h4>
+      </a>
+      <div id="chartDivmodern" class="chartdiv"></div>
+      <table class="table table-striped table-hover">
+        <colgroup>
+          <col width="30%">
+          <col width="70%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>{{body.date}}</th>
+            <th>{{body.tournament}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {%- for each in modern -%}
+          <tr href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}" click-type="1">
+            <td href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}">{{each.date}}</td>
+            <td href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}">{{each.name | truncate(35)}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class ="to_right">
+        <a href="/{{lang}}/constructed_modern/">{{body.modern_details}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-xs-12 col-lg-6">
+    <div class="thumbnail">
+      <a href="/{{lang}}/constructed/?act=legacy">
+        <h4>{{body.legacy}}</h4>
+      </a>
+      <div id="chartDivlegacy" class="chartdiv"></div>
+      <table class="table table-striped table-hover">
+        <colgroup>
+          <col width="30%">
+          <col width="70%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>{{body.date}}</th>
+            <th>{{body.tournament}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {%- for each in legacy -%}
+          <tr href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}" click-type="1">
+            <td href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}">{{each.date}}</td>
+            <td href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}">{{each.name | truncate(35)}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class ="to_right">
+        <a href="/{{lang}}/constructed_legacy/">{{body.legacy_details}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-xs-12 col-lg-6">
+    <div class="thumbnail">
+      <a href="/{{lang}}/constructed/?act=vintage">
+        <h4>{{body.vintage}}</h4>
+      </a>
+      <div id="chartDivvintage" class="chartdiv"></div>
+      <table class="table table-striped table-hover">
+        <colgroup>
+          <col width="30%">
+          <col width="70%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>{{body.date}}</th>
+            <th>{{body.tournament}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {%- for each in vintage -%}
+          <tr href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}" click-type="1">
+            <td href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}">{{each.date}}</td>
+            <td href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}">{{each.name | truncate(35)}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class ="to_right">
+        <a href="/{{lang}}/constructed_vintage/">{{body.vintage_details}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

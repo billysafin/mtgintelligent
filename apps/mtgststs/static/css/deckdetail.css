@@ -1,0 +1,26 @@
+both-side-no-pad {
+    padding-right:  15px;
+    padding-left:   15px;
+}
+ 
+@media (min-width: 768px) {
+    #smallchart {
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 992px) {
+    #smallchart {
+        width: 66% !important; 
+    }
+}
+
+@media (max-width: 768px) {
+    #smallchart {
+        width: 100% !important;
+    }
+    
+    .col-xs-12 {
+        width: 100% !important;
+    }
+}

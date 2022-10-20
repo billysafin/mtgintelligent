@@ -1,0 +1,617 @@
+<?php
+/**
+ * Zencartから出力される受注データ。営業日に1日2回出力される。1stバッチは前日（営業日）のPM12:01～翌AM5:00までの受注を5:15頃出力。
+ * 2ndバッチはAM5:01～PM12:00までの受注を12:10頃出力。出力先は：\\Lcjftpsv01\ftp\zenOrder
+ * MSNAV_YYYY-MM-DD_HH-MM.csv　⇒ ファイル名は相談　出力エラー対応として手動でダウンロード可能にする。バッチごと、または受注ごとにできるとよい
+ */
+class Rack_OrderExport_Model_Order_Export extends Mage_Sales_Model_Order
+{
+    const PAGE_SIZE         = 2000;
+    const MAX_UPLOAD_RETRY  = 3;
+    const IS_NOSHI          = 4;
+    CONST NOSHI_IN_WRAPPING = 0;
+    const SHOPPING_BAG_FLAG = 'shopping-bag';
+    const WRAPPING_OPTION   = 'wrapping_option';
+    const GIFTWRAPPING_FLAG = 'giftwrapping_flag';
+    const INFO_BUYREQUEST   = 'info_buyRequest';
+
+    protected $_deliveryTimeMapping = array(
+        '指定しない（最短発送になります）'  => '',
+        '指定しない'                    => '',
+        '午前中'                       => 'AM',
+        '9:00〜12:00'                 => 'AM',
+        '14:00〜16:00'                => '14-16',
+        '16:00〜18:00'                => '16-18',
+        '18:00〜20:00'                => '18-20',
+        '19:00〜21:00'                => '19-21'
+    );
+
+    protected $_shippingMethod = array(
+        '1' => 'paygent_cc',
+        '2' => 'cashondelivery'
+    );
+
+    protected function _getExportSql($ids = null, $exportTimes = null)
+    {
+        $sql = "select o.increment_id as order_no,
+                    DATE_FORMAT(DATE_ADD(o.created_at, interval 9 HOUR), '%Y%m%d') as order_created_at,
+                    o.delivery_date as delivery_date,
+                    concat(b.lastname, ' ', b.firstname) as customer_name,
+                    b.postcode as customer_postcode,
+                    b.region as customer_region,
+                    b.city as customer_street1,
+                    b.street as customer_street2,
+                    DATE_FORMAT(now(), '%Y%m%d') as shipping_date,
+                    '' as empty,
+                    '' as delivery_time_no,
+                    IF (p.method = 'cashondelivery','5','2') as shipping_method,
+                    concat(b.lastname, ' ', b.firstname) as billing_name,
+                    b.postcode as billing_postcode,
+                    b.region as billing_region,
+                    b.city as billing_street1,
+                    b.street as billing_street2,
+                    b.telephone as bill_phone,
+                    concat(s.lastname, ' ', s.firstname) as shipping_name,
+                    s.postcode as shipping_postcode,
+                    s.region as shipping_region,
+                    s.city as shipping_street1,
+                    s.street as shipping_street2,
+                    s.telephone as ship_phone,
+                    CASE p.method WHEN 'paygent_cc' THEN '1' WHEN 'paygent_re' THEN '1' WHEN 'cashondelivery' THEN '2' WHEN 'paygent_cvs' THEN '3' WHEN 'paygent_atm' THEN '4' WHEN 'free' THEN '9' WHEN 'amazon_payments' THEN '10' END as method,
+                    comment,
+                    o.delivery_time,
+                    CASE IF (COALESCE(oi.real_gw_id, 0) = 0, o.gw_id, oi.real_gw_id) WHEN '1' THEN '1' WHEN '3' THEN '1' WHEN '4' THEN '2' WHEN '5' THEN '3' ELSE oi.real_gw_id END as giftwrapping_flag,
+                    o.customer_id,
+                    (select count(1) FROM sales_flat_order_item toi where toi.order_id = o.entity_id and toi.product_type != 'configurable' ) as total_line,
+                    0 as line_number,
+                    oi.name,
+                    oi.sku,
+                    truncate(oi.qty_ordered, 0) as qty,
+                    truncate(if(oi.price=0, (
+                                  select (oi2.row_total_incl_tax - oi2.discount_amount) - (oi2.row_total_incl_tax - oi2.row_total - oi2.tax_amount)
+                                  from sales_flat_order_item oi2
+                                  where oi2.item_id=oi.parent_item_id and oi2.order_id=o.entity_id
+                                  ),
+                                (oi.row_total_incl_tax - oi.discount_amount) - (oi.row_total_incl_tax - oi.row_total - oi.tax_amount)), 0)
+                            as price,
+                    '' as price_incl_tax,
+                    if (truncate(o.gw_items_price, 0) = 0, truncate(o.gw_price, 0), truncate(o.gw_items_price, 0)) as giftwrapping_fee,
+                    truncate(o.cod_fee ,0) as cod_fee,
+                    truncate(o.shipping_amount,0) as shipping_amount,
+                    truncate(o.grand_total, 0) as grand_total,
+                    truncate(o.tax_amount, 0) as tax_amount,
+                    '' as earned_points,
+                    o.reward_points_balance as points,
+                    '' as discount_amount,
+                    o.coupon_code,
+                    IF(p.method = 'amazon_payments', p.last_trans_id, p.cc_trans_id) as paygent_id,
+                    '' as coupon_type,
+                    o.gc_amount,
+                    o.gc_trans_no,
+                    0 as has_giftcard,
+                    oi.product_options
+                from sales_flat_order o
+                    inner join
+                    (SELECT
+                        *
+                        , IF (COALESCE(_oiSim.gw_id, 0) = 0, _oiConf.conf_gw_id, _oiSim.gw_id) as real_gw_id
+                      FROM
+                        sales_flat_order_item _oiSim
+                        INNER JOIN
+                          (SELECT entity_id, created_at FROM sales_flat_order WHERE exported is null) _o
+                        ON
+                          _o.entity_id = _oiSim.order_id
+                        LEFT JOIN
+                        (SELECT
+                          item_id as id
+                          , gw_id as conf_gw_id
+                        FROM
+                          sales_flat_order_item
+                        WHERE
+                          product_type = 'configurable') _oiConf
+                        ON _oiSim.parent_item_id = _oiConf.id
+                      WHERE
+                        _oiSim.product_type != 'configurable'";
+
+                if(!is_null($ids)) {
+                    $sql .= ' AND _oiSim.order_id in (' . implode(',', $ids) . ') ';
+                }  elseif ($exportTimes == 1) {
+                    $to = Mage::app()->getLocale()->date();
+                    $to->setHour(5)->setMinute(0)->setSecond(0);
+                    $sql .= ' AND _o.created_at <= "' . date('Y-m-d H:i:s', $to->getTimestamp()) . '"';
+                } elseif ($exportTimes == 2) {
+                    $to = Mage::app()->getLocale()->date();
+                    $to->setHour(12)->setMinute(0)->setSecond(59);
+
+                    $sql .= ' AND _o.created_at <= "' . date('Y-m-d H:i:s', $to->getTimestamp()) . '"';
+                } elseif ($exportTimes == 3) {
+                    $from = Mage::app()->getLocale()->date();
+                    $from->setHour(1)->setMinute(0)->setSecond(0);
+
+                    $to = Mage::app()->getLocale()->date();
+                    $to->setHour(23)->setMinute(59)->setSecond(59);
+
+                    $sql .= ' AND _o.created_at > "' . date('Y-m-d H:i:s', $from->getTimestamp()) . '"'
+                        .  ' AND _o.created_at <= "' . date('Y-m-d H:i:s', $to->getTimestamp()) . '"';
+                }
+
+                $sql .= ") as oi
+                    on o.entity_id = oi.order_id and oi.product_type != 'configurable'";
+
+        if(is_null($ids)) {
+            $sql .= " and o.status in ('processing') ";
+        }
+        $sql .=" left join sales_flat_order_address b on b.parent_id = o.entity_id and b.address_type = 'billing'
+                    left join sales_flat_order_address s on s.parent_id = o.entity_id and s.address_type = 'shipping'
+                    left join sales_flat_shipment si on si.order_id = o.entity_id
+                    left join sales_flat_order_payment p on o.entity_id = p.parent_id
+                ";
+
+        if(!is_null($ids)) {
+            $sql .= ' where o.entity_id in (' . implode(',', $ids) . ') ';
+        } elseif ($exportTimes == 1) {
+            $to = Mage::app()->getLocale()->date();
+            $to->setHour(5)->setMinute(0)->setSecond(0);
+            $sql .= ' WHERE o.created_at <= "' . date('Y-m-d H:i:s', $to->getTimestamp()) . '" and o.exported is null';
+        } elseif ($exportTimes == 2) {
+            $from = Mage::app()->getLocale()->date();
+            $from->setHour(5)->setMinute(0)->setSecond(0);
+
+            $to = Mage::app()->getLocale()->date();
+            $to->setHour(12)->setMinute(0)->setSecond(59);
+
+            $sql .= ' WHERE o.created_at <= "' . date('Y-m-d H:i:s', $to->getTimestamp()) . '" and o.exported is null';
+        } elseif ($exportTimes == 3) {
+            $from = Mage::app()->getLocale()->date();
+            $from->setHour(1)->setMinute(0)->setSecond(0);
+
+            $to = Mage::app()->getLocale()->date();
+            $to->setHour(23)->setMinute(59)->setSecond(59);
+
+            $sql .= ' WHERE o.created_at > "' . date('Y-m-d H:i:s', $from->getTimestamp()) . '"'
+                .  ' AND o.created_at <= "' . date('Y-m-d H:i:s', $to->getTimestamp()) . '" and o.exported is null';
+        }
+
+        $sql .= ' order by o.increment_id';
+
+        return $sql;
+
+    }
+
+    /**
+     * Export orders
+     *
+     * @return string
+     */
+    public function export($exportTimes = null)
+    {
+        $file = $this->_getDestinationFile();
+        $handle = fopen($file, 'w');
+        if (!$handle) {
+            Mage::throwException('Can not open file for writing.');
+            return;
+        }
+
+        $sql = $this->_getExportSql(null, $exportTimes);
+        $conn = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $result = $conn->fetchAll($sql);
+        $mapping = $this->_getCouponMapping();
+        $orders = array();
+        if (is_array($result) && count($result) > 0) {
+            $orderNo = $result[0]['order_no'];
+            $lineNo = 0;
+            //fputcsv($handle, implode(',', array_keys($result[0])));
+            foreach ($result as $row) {
+                $orders[$row['order_no']] = $row['order_no'];
+                if ($orderNo != $row['order_no']) {
+                    $lineNo = 1;
+                    $orderNo = $row['order_no'];
+                }  else {
+                    $lineNo++;
+                }
+                $row['line_number'] = $lineNo;
+                if (isset($this->_deliveryTimeMapping[$row['delivery_time']])) {
+                    $row['delivery_time_no'] = $this->_deliveryTimeMapping[$row['delivery_time']];
+                }
+                if ($row['customer_id'] != '') {
+                    $reward = Mage::getModel('enterprise_reward/reward')
+                        ->setCustomer(Mage::getModel('customer/customer')->load($row['customer_id']));
+                    $rate = $reward->getRateToPoints()->getCurrencyAmount();
+                    $row['earned_points'] = 0;
+                    if($row['grand_total'] != 0) {
+                        $row['earned_points'] = floor(($row['grand_total'] - $row['tax_amount']) / $rate);
+                    }
+                }
+
+                if($row['delivery_date'] == '指定しない（最短発送になります）') {
+                    $row['delivery_date'] = null;
+                } else if($row['delivery_date'] == '指定しない') {
+                    $row['delivery_date'] = null;
+                } else {
+                    $row['delivery_date'] = preg_replace('/(年|月|日)/u', '', $row['delivery_date']);
+                }
+                if($row['delivery_time'] == '指定しない') {
+                    $row['delivery_time'] = '';
+                }
+
+                if($row['coupon_code'] != '') {
+                    $row['coupon_type'] = $this->_convertCouponCodeIntoFlag(strtoupper($row['coupon_code']), $mapping);
+                    $row['coupon_code'] = strtoupper($row['coupon_code']);
+                }
+
+                if($row['points'] != 0) {
+                    $row['points'] = $row['points'] * -1;
+                }
+
+                //giftcard
+                if ($row['gc_amount'] > 0) {
+                    $row['gc_amount'] = (int)$row['gc_amount']*-1;
+                    $row['has_giftcard'] = 1;
+
+                    $row['shipping_method'] = 2;
+
+                    if ($row['grand_total'] == 0) {
+                        $row['method'] = 8;
+                    } elseif($row['grand_total'] > 0 && $row['method'] == '2') {
+                        $row['shipping_method'] = 5;
+                    }
+                }
+
+                if(!$row['coupon_code']) {
+                    $order = Mage::getModel('sales/order')->loadByIncrementId($row['order_no']);
+                    if($applied = $order->getAppliedRuleIds()){
+                        $applied = explode(',', $applied);
+                        $atCounpon = $this->_getAtCouponMapping();
+
+                        foreach($applied as $_at) {
+                            $flag = $this->_convertAtCouponCodeIntoFlag($_at, $atCounpon);
+                            $row['coupon_code'] = "";
+                            $row['coupon_type'] = $flag;
+                        }
+                    }
+                }
+		$row['coupon_code'] = '';
+                $row['delivery_date'] = trim($row['delivery_date']);
+
+                $product_options = $row['product_options'];
+                unset($row['product_options']);
+
+                if ($product_options && !empty($row[self::GIFTWRAPPING_FLAG])) {
+                    $unserialized_options = (array)unserialize($product_options);
+                    if (array_key_exists(self::INFO_BUYREQUEST, $unserialized_options)) {
+                        $info_buyRequest = $unserialized_options[self::INFO_BUYREQUEST];
+
+                        if (array_key_exists(self::WRAPPING_OPTION, $info_buyRequest)) {
+                            if ((int)$info_buyRequest[self::WRAPPING_OPTION] === self::IS_NOSHI) {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)"8" . (string)$row[self::GIFTWRAPPING_FLAG];
+                            } else {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)"0" . (string)$row[self::GIFTWRAPPING_FLAG];
+                            }
+                        }
+
+                        if (array_key_exists('giftwrapping', $info_buyReques)) {
+                            if (array_key_exists(self::SHOPPING_BAG_FLAG, $info_buyRequest['giftwrapping'])) {
+                                $flag = ((int)$info_buyRequest['giftwrapping'][self::SHOPPING_BAG_FLAG] === 1) ? "1" : "0";
+                                $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)$flag;
+                            } else {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)"0";
+                            }
+                        } else {
+                            $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)"0";
+                        }
+
+                        //In the future, when out wrapping is decided then this section needs to be modified
+                        if (array_key_exists(self::WRAPPING_OPTION, $info_buyRequest)) {
+                            if ((int)$info_buyRequest[self::WRAPPING_OPTION] === self::IS_NOSHI) {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)self::NOSHI_IN_WRAPPING;
+                            } else {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)"0";
+                            }
+                        } else {
+                            $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)"0";
+                        }
+                    } else {
+                        $row[self::GIFTWRAPPING_FLAG] = (string)"0" . (string)$row[self::GIFTWRAPPING_FLAG] . (string)"00";
+                    }
+                } else {
+                    $row[self::GIFTWRAPPING_FLAG] = (string)"0" . (string)$row[self::GIFTWRAPPING_FLAG] . (string)"00";
+                }
+
+                if((int)$row[self::GIFTWRAPPING_FLAG] == (int)0) {
+                    $row[self::GIFTWRAPPING_FLAG] = '';
+                }
+
+                $row = preg_replace('/(\r\n|\r|\n)/', '', $row);
+                mb_convert_variables($this->_getExportEncoding(), 'utf-8', $row);
+                fputcsv($handle, $row);
+            }
+        }
+
+        fclose($handle);
+
+        $this->_updateOrders($orders);
+
+        return $file;
+    }
+
+    public function exportById(array $ids, $update=true)
+    {
+        $sql = $this->_getExportSql($ids);
+        $conn = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $result = $conn->fetchAll($sql);
+        $mapping = $this->_getCouponMapping();
+
+        $data = array();
+        $orders = array();
+        if (is_array($result) && count($result) > 0) {
+
+            $orderNo = $result[0]['order_no'];
+            $lineNo = 0;
+            foreach ($result as $row) {
+                $orders[$row['order_no']] = $row['order_no'];
+                if ($orderNo != $row['order_no']) {
+                    $lineNo = 1;
+                    $orderNo = $row['order_no'];
+                }  else {
+                    $lineNo++;
+                }
+                $row['line_number'] = $lineNo;
+                if (isset($this->_deliveryTimeMapping[$row['delivery_time']])) {
+                    $row['delivery_time_no'] = $this->_deliveryTimeMapping[$row['delivery_time']];
+                }
+                if ($row['customer_id'] != '' && $row['grand_total'] != 0) {
+                    $reward = Mage::getModel('enterprise_reward/reward')
+                        ->setCustomer(Mage::getModel('customer/customer')->load($row['customer_id']));
+                    $rate = $reward->getRateToPoints()->getCurrencyAmount();
+                    $row['earned_points'] = floor(($row['grand_total'] - $row['tax_amount']) / $rate);
+                }
+
+                if($row['delivery_date'] == '指定しない（最短発送になります）') {
+                    $row['delivery_date'] = null;
+                }else if($row['delivery_date'] == '指定しない') {
+                    $row['delivery_date'] = null;
+                } else {
+                    $row['delivery_date'] = preg_replace('/(年|月|日)/u', '', $row['delivery_date']);
+                }
+                if($row['delivery_time'] == '指定しない') {
+                    $row['delivery_time'] = '';
+                }
+
+                if($row['coupon_code'] != '') {
+                    $row['coupon_type'] = $this->_convertCouponCodeIntoFlag(strtoupper($row['coupon_code']), $mapping);
+                    $row['coupon_code'] = strtoupper($row['coupon_code']);
+                }
+
+                if(!$row['coupon_code']) {
+                    $order = Mage::getModel('sales/order')->loadByIncrementId($row['order_no']);
+                    if($applied = $order->getAppliedRuleIds()){
+                        $applied = explode(',', $applied);
+                        $atCounpon = $this->_getAtCouponMapping();
+
+                        foreach($applied as $_at) {
+                            $flag = $this->_convertAtCouponCodeIntoFlag($_at, $atCounpon);
+                            $row['coupon_code'] = "";
+                            $row['coupon_type'] = $flag;
+                        }
+                    }
+                }
+
+		$row['coupon_code'] = '';
+                if($row['points'] != 0) {
+                    $row['points'] = $row['points'] * -1;
+                }
+
+                //giftcard
+                if ($row['gc_amount'] > 0) {
+                    $row['gc_amount'] = (int)$row['gc_amount']*-1;
+                    $row['has_giftcard'] = 1;
+
+                    $row['shipping_method'] = 2;
+
+                    if ($row['grand_total'] == 0) {
+                        $row['method'] = 8;
+                    } elseif($row['grand_total'] > 0 && $row['method'] == '2') {
+                        $row['shipping_method'] = 5;
+                    }
+                }
+
+                $product_options = $row['product_options'];
+                unset($row['product_options']);
+
+                if ($product_options  && !empty($row[self::GIFTWRAPPING_FLAG])) {
+                    $unserialized_options = (array)unserialize($product_options);
+                    if (array_key_exists(self::INFO_BUYREQUEST, $unserialized_options)) {
+                        $info_buyRequest = $unserialized_options[self::INFO_BUYREQUEST];
+
+                        if (array_key_exists(self::WRAPPING_OPTION, $info_buyRequest)) {
+                            if ((int)$info_buyRequest[self::WRAPPING_OPTION] === self::IS_NOSHI) {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)"8" . (string)$row[self::GIFTWRAPPING_FLAG];
+                            } else {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)"0" . (string)$row[self::GIFTWRAPPING_FLAG];
+                            }
+                        }
+
+
+                        if (array_key_exists('giftwrapping', $info_buyReques)) {
+                            if (array_key_exists(self::SHOPPING_BAG_FLAG, $info_buyRequest['giftwrapping'])) {
+                                $flag = ((int)$info_buyRequest['giftwrapping'][self::SHOPPING_BAG_FLAG] === 1) ? "1" : "0";
+                                $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)$flag;
+                            } else {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)"0";
+                            }
+                        } else {
+                            $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)"0";
+                        }
+
+
+                        //In the future, when out wrapping is decided then this section needs to be modified
+                        if (array_key_exists(self::WRAPPING_OPTION, $info_buyRequest)) {
+                            if ((int)$info_buyRequest[self::WRAPPING_OPTION] === self::IS_NOSHI) {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)self::NOSHI_IN_WRAPPING;
+                            } else {
+                                $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)"0";
+                            }
+                        } else {
+                            $row[self::GIFTWRAPPING_FLAG] = (string)$row[self::GIFTWRAPPING_FLAG] . (string)"0";
+                        }
+                    } else {
+                        $row[self::GIFTWRAPPING_FLAG] = (string)"0" . (string)$row[self::GIFTWRAPPING_FLAG] . (string)"00";
+                    }
+                } else {
+                    $row[self::GIFTWRAPPING_FLAG] = (string)"0" . (string)$row[self::GIFTWRAPPING_FLAG] . (string)"00";
+                }
+
+                if((int)$row[self::GIFTWRAPPING_FLAG] == (int)0) {
+                    $row[self::GIFTWRAPPING_FLAG] = '';
+                }
+
+                $row['delivery_date'] = trim($row['delivery_date']);
+                $row = preg_replace('/(\r\n|\r|\n)/', '', $row);
+                $data[] = mb_convert_encoding('"' . implode('","', $row) . '"', $this->_getExportEncoding(), 'utf-8');
+
+            }
+        }
+
+        if($update == true){
+            $this->_updateOrders($orders);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get FTP client
+     *
+     * @return Rack_Core_Model_Io_Ftp
+     */
+    public function getFtpClient()
+    {
+        if ($this->_ftpClient == null) {
+            $options = array(
+                'host'     => Mage::getStoreConfig('orderexport/ftp/host'),
+                'port'     => Mage::getStoreConfig('orderexport/ftp/port'),
+                'username' => Mage::getStoreConfig('orderexport/ftp/username'),
+                'password' => Mage::getStoreConfig('orderexport/ftp/password'),
+                'secure'   => (Mage::getStoreConfig('orderexport/ftp/secure') == 1),
+                'path'     => Mage::getStoreConfig('orderexport/ftp/path')
+            );
+
+
+            $this->_ftpClient = new Rack_Core_Model_Io_Ftp($options);
+
+        }
+
+        return $this->_ftpClient;
+    }
+
+    public function exportAndUpload($exportTimes = null)
+    {
+        $file = $this->export($exportTimes);
+        if (!empty($file)) {
+            $ftpClient = $this->getFtpClient();
+            $retry = 0;
+            while ($retry < self::MAX_UPLOAD_RETRY) {
+                if ($ftpClient->upload($file, basename($file))) {
+                    $size = filesize($file);
+                    if ($size == $ftpClient->fileSize(basename($file))) {
+                        break;
+                    }
+                }
+                $retry++;
+            }
+        }
+    }
+
+    public function fixOrphansItems()
+    {
+        /* @var $helper Rack_OrderExport_Helper_Data */
+        $helper = Mage::helper('orderexport');
+
+        $orphans = $helper->getOrphansOrderItems();
+        if (is_array($orphans)) {
+            foreach ($orphans as $item) {
+                $helper->cloneConfigureItem($item);
+            }
+        }
+    }
+
+    protected function _getDestinationFile()
+    {
+        $date = Mage::app()->getLocale()->date();
+        $path = Mage::getBaseDir('var') . DS . 'export/MSNAV_' . $date->toString('YYYYMMddHHmm') . '.csv';
+
+        return $path;
+    }
+
+    protected function _getExportEncoding()
+    {
+        $encoding = Mage::getStoreConfig('orderexport/config/encoding');
+        if ($encoding == '') {
+            $encoding = 'SJIS';
+        }
+
+        return $encoding;
+    }
+
+    protected function _updateOrders($orders)
+    {
+        $order = Mage::getModel('sales/order');
+        $date = Mage::app()->getLocale()->date();
+
+        foreach($orders as $id) {
+            $order->loadByIncrementId($id);
+            $order->setExported(date('Y-m-d H:i:s', $date->getTimestamp()));
+            $order->save();
+        }
+    }
+
+    protected function _getCouponMapping()
+    {
+        $config = preg_split('/(\r\n|\r|\n)/', Mage::getStoreConfig('orderexport/config/coupon_mapping'));
+        $mapping = array();
+        foreach ($config as $_config) {
+            $map = preg_split('/,/', $_config);
+            $mapping[$map[0]] = $map[1];
+        }
+
+        return $mapping;
+    }
+
+    protected function _convertCouponCodeIntoFlag($couponCode, $mapping)
+    {
+        $flag = '';
+        foreach($mapping as $key => $value) {
+            if(preg_match('/^' . $key . '/', $couponCode)) {
+                $flag = $value;
+            }
+        }
+        return $flag;
+    }
+
+    protected function _getAtCouponMapping()
+    {
+        $config = preg_split('/(\r\n|\r|\n)/', Mage::getStoreConfig('orderexport/config/at_coupon_mapping'));
+        $mapping = array();
+        foreach ($config as $_config) {
+            $map = preg_split('/,/', $_config);
+            if (count($map) > 1) {
+                $mapping[$map[0]] = $map[1];
+            } else {
+                $mapping[$map[0]] = false;
+            }
+        }
+
+        return $mapping;
+    }
+
+    protected function _convertAtCouponCodeIntoFlag($couponCode, $mapping)
+    {
+        $flag = '';
+        foreach($mapping as $key => $value) {
+            if(preg_match('/^' . $key . '/', $couponCode)) {
+                $flag = $value;
+            }
+        }
+        return $flag;
+    }
+}

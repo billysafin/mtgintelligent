@@ -1,0 +1,69 @@
+{%- block header -%}
+  <meta charset="UTF-8"/>
+  <meta http-equiv="content-language" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta name="author" content="{{meta.author}}"/>
+  <meta name="keywords" content="{% if keywords %}{{keywords}}{% else %}{{meta.keywords}}{% endif %}"/>
+  <meta name="description" content="{% if description %}{{description}}{% else %}{{meta.description}}{% endif %}"/>
+  <meta name=robots content="INDEX,FOLLOW"/>
+  <meta property=og:site_name content="MTG Statistics"/>
+  <meta property=og:url content="{{meta.base_url}}{{request.path}}"/>
+  <meta property=og:title content="{%- if title is defined -%}{{title}} | MTG Statistics{%- else -%}{{meta.title}}{% endif %}"/>
+  <meta property=og:description content="{% if description %}{{description}}{% else %}{{meta.description}}{% endif %}"/>
+  <meta property=og:type content="website" />
+  <meta property=og:image content="{{meta.base_url}}{{'static/images/sitelogo.png'|versioned}}"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, public, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="google-site-verification" content="VqGHsaxOymcfWOGR6zb5iyBzFPZOxG-L5Cfbr0Ci4S4" />
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org/"
+      ,"@type" : "WebSite"
+      ,"url":"{{meta.base_url}}{{request.path}}"
+      ,"name":"{%- if title is defined -%}{{title}} | MTG Statistics{%- else -%}{{meta.title}}{% endif %}"
+      ,"image":"{{meta.base_url}}{{'static/images/sitelogo.png'|versioned}}"
+      ,"description":"{% if description %}{{description}}{% else %}{{meta.description}}{% endif %}"
+    }
+  </script>
+  
+  <title>{%- if title is defined -%}{{title}} | MTG Statistics{%- else -%}{{meta.title}}{% endif %}</title>
+  
+  <link rel="stylesheet" type="text/css" href="{{'static/css/bootstrap.min.css'|versioned}}">
+  <link rel="stylesheet" type="text/css" href="{{'static/css/bootstrap-responsive.min.css'|versioned}}">
+  <link rel="stylesheet" type="text/css" href="{{'static/css/common-css.css'|versioned}}">
+  <link rel="stylesheet" type="text/css" href="{{'static/css/jquery-ui.min.css'|versioned}}">
+  <link rel="stylesheet" type="text/css" href="{{'static/css/jquery-ui.structure.min.css'|versioned}}">
+  <link rel="stylesheet" type="text/css" href="{{'static/css/googlefont.css'|versioned}}">
+  <link rel="shortcut icon" href="{{'static/images/favicon.ico'|versioned}}">
+  <link rel="apple-touch-icon" href="{{'static/images/sitelogo.png'|versioned}}">
+  {%- if include_css is not none -%}
+    {%- for css in include_css -%}
+       {% set href = 'static/css/' + css.css %}
+      <link rel="stylesheet" type="text/css" href="{{href|versioned}}" {%- if css.param -%}{{css.param}}{% endif %} >
+    {% endfor %}
+  {% endif %}
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+  <script>
+  window.addEventListener("load", function(){
+  window.cookieconsent.initialise({
+    "palette": {
+      "popup": {
+        "background": "#000"
+      },
+      "button": {
+        "background": "#f1d600"
+      },
+      "content": {
+        "link": "https://cookiesandyou.com/"
+      }
+    }
+  })});
+  </script>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script src="{{'static/js/googleAdSence.js'|versioned}}"></script>
+
+{% endblock %}

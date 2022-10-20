@@ -1,0 +1,118 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+<div class="spacing-bottom bg-white">
+  <div class="col-xs-12 col-md-12 col-sm-12">
+    <div id="decklist" class="thumbnail">
+      {%- for u in tour_details -%}
+        <table class="table">
+          <caption>
+            <center>
+              <h2>{{u.name}}</h2>
+            </center>
+          </caption>
+          <tbody>
+            <tr class="non-clickable">
+              <td>
+                <p><b>{{body.format}}:</b></p>
+              </td>
+              <td>
+                <p>{{u.format}}</p>
+              </td>
+              <td>
+                <p><b>{{body.rounds}}:</b></p>
+              </td>
+              <td>
+                <p>{{u.rounds}}</p>
+              </td>
+            </tr>
+            <tr class="non-clickable">
+              <td>
+                <p><b>{{body.date}}:</b></p>
+              </td>
+              <td>
+                <p>{{u.start}}&nbsp;&nbsp;~&nbsp;&nbsp;{{u.end}}</p>
+              </td>
+              <td>
+                 <p><b>{{body.location}}:</b></p>
+              </td>
+              <td>
+                <p>{{u.location}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      {% endfor %}
+    </div>
+    {%- for eachCard in deck_lists -%}
+      <div id="decklist" class="thumbnail">
+        <div class="col-xs-12 col-md-12 col-sm-12">
+          <center>
+            <b>{{eachCard.meta_name}}</b>
+            <br />{{eachCard.player_name}}
+          </center>
+          <div class="col-xs-6 col-md-6">
+            <p><b>{{body.rank}}:</b>{{eachCard.rank or ''}}</p>
+            <p><b>{{body.omwp}}:</b>{{eachCard.omwp or ''}}</p>
+          </div>
+          <div class="col-xs-6 col-md-6">
+            <p><b>{{body.gwp}}:</b>{{eachCard.gwp or ''}}</p>
+            <p><b>{{body.ogwp}}:</b>{{eachCard.ogwp or ''}}</p>
+          </div>
+        </div>
+        <div id="decklistTable" class="row table-margin-custom">
+          <div class="col-xs-12 col-md-4 col-sm-4 ml-12">
+            {%- for lands in eachCard.decklist.mainLands -%}
+              {{lands.amount}}
+              <a title="{{conoha_url}}{{lands.image_name}}" href="{{lands.card_url}}" target="_blank" class="clickable showCard">
+                {{lands.card_name}}
+              </a>
+              <br />
+            {% endfor %}
+            <hr style="margin:0em;margin-bottom:-1em;" width="100%" align="left">
+            <br />
+            <p>Total:&nbsp;&nbsp;{{eachCard.decklist.mainLandsTotal}}&nbsp;&nbsp;Cards</p>
+            <br />
+            {%- for Creatures in eachCard.decklist.mainCreatures -%}
+              {{Creatures.amount}}
+              <a title="{{conoha_url}}{{Creatures.image_name}}" href="{{Creatures.card_url}}" target="_blank" class="clickable showCard">
+                {{Creatures.card_name}}
+              </a>
+              <br />
+            {% endfor %}
+            <hr style="margin:0em;margin-bottom:-1em;" width="100%" align="left">
+            <br />
+            <p>Total:&nbsp;&nbsp;{{eachCard.decklist.mainCreaturesTotal}}&nbsp;&nbsp;Cards</p>
+            <br />
+          </div>
+          <div class="col-xs-12 col-md-4 col-sm-4 ml-12">
+            {%- for Spells in eachCard.decklist.mainSpells -%}
+              {{Spells.amount}}
+              <a title="{{conoha_url}}{{Spells.image_name}}" href="{{Spells.card_url}}" target="_blank" class="clickable showCard">
+                {{Spells.card_name}}
+              </a>
+              <br />
+            {% endfor %}
+            <hr style="margin:0em;margin-bottom:-1em;" width="100%" align="left">
+            <br />
+            <p>Total:&nbsp;&nbsp;{{eachCard.decklist.mainSpellsTotal}}&nbsp;&nbsp;Cards</p>
+            <br />
+          </div>
+          <div class="col-xs-12 col-md-4 col-sm-4 ml-12">
+            {%- for sideBoard in eachCard.decklist.sideBoard -%}
+              {{sideBoard.amount}}
+              <a title="{{conoha_url}}{{sideBoard.image_name}}" href="{{sideBoard.card_url}}" target="_blank" class="clickable showCard">
+                {{sideBoard.card_name}}
+              </a>
+              <br />
+            {% endfor %}
+            <hr style="margin:0em;margin-bottom:-1em;" width="100%" align="left">
+            <br />
+            <p>Total:&nbsp;&nbsp;{{eachCard.decklist.sideboardTotal}}&nbsp;&nbsp;Cards</p>
+            <br />
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}

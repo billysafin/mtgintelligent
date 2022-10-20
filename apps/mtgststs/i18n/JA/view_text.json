@@ -1,0 +1,383 @@
+{
+    "app" : {
+        "news_general" : "ニュース総合"
+    },
+    "meta" : {
+        "base_url"    : "https://www.mtgstatistics.com",
+        "title"       : "MTG Statistics",
+        "author"      : "Billy Safin",
+        "keywords"    : "magic,card games,mtg,gathering,trading,マジック,マジック ザ ギャザリング,カードゲーム",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。国内~海外サイト記事など。価格やMO結果やMTGに関わる統計機能などを随時機能追加していきます!"
+    },
+    "header" : {
+        
+    },
+    "footer" : {
+      "about"           : "サイトについて",
+      "contact"         : "お問い合わせ",
+      "contact_address" : "billysafin@gmail.com",
+      "lang_switch"     : "Langugage",
+      "ja"              : "日本語",
+      "en"              : "English"
+    },
+    "titles" : {
+        "h1_title" : "MTG Statistics"
+    },
+    "menus" : {
+        "top"         : "トップ",
+        "articles"    : "記事",
+        "results"     : "大会結果検索", 
+        "limited"     : "リミテッド",
+        "constracted" : "構築デッキ",
+        "price"       : "価格",
+        "search"      : "検索",
+        "draft"       : "ドラフト"
+    },
+    "side_menu" : {
+        "search_by_sites"      : "サイト名で検索",
+        "tournament_results"   : "大会結果",
+        "resuls_all"           : "一覧へ",
+        "search_by_format"     : "フォーマットで探す",
+        "general"              : "最新記事",
+        "pastarticles"         : "過去記事",
+        "english"              : "英語",
+        "japanese"             : "日本語",
+        "all_formats"          : "全構築フォーマット",
+        "standard"             : "スタンダード",
+        "modern"               : "モダン",
+        "extended"             : "エクステンド",
+        "legacy"               : "レガシー",
+        "vintage"              : "ヴィンテージ",
+        "others"               : "その他",
+        "please_select"        : "選択してください"
+    },
+    "sub_menus" : {
+        "home"                 : "HOME",
+        "english"              : "英語",
+        "japanese"             : "日本語",
+        "general"              : "最新記事",
+        "pastarticles"         : "過去記事",
+        "bySet"                : "セットごと",
+        "formats"              : "全構築フォーマット",
+        "standard"             : "スタンダード",
+        "modern"               : "モダン",
+        "extended"             : "エクステンド",
+        "legacy"               : "レガシー",
+        "vintage"              : "ヴィンテージ",
+        "others"               : "その他",
+        "price_all"            : "全ての価格",
+        "auction"              : "オークション",
+        "shops"                : "ショップ",
+        "search_all"           : "全検索",
+        "search_real_player"   : "プレーヤー検索",
+        "search_online_player" : "MOアカウント検索",
+        "search_card"          : "カード検索",
+        "search_news"          : "ニュース検索",
+        "latest"               : "最新のセット",
+        "a_set_ago"            : "一つ前のセット",
+        "two_sets_ago"         : "2つ前のセット",
+        "about"                : "このサイトについて",
+        "to_erik_landriz"      : "To :  My Friend Erik Landriz"
+    },
+    "403" : {
+        "title" : "Sorry. Forbidden fruit!!",
+        "body"  : {
+            "title" : "Sorry. Forbidden fruit!!"
+        }
+    },
+    "404" : {
+        "title" : "Page Not Found!!",
+        "body"  : {
+            "title" : "Page Not Found!!"
+        }
+    },
+    "410" : {
+        "title" : "I'm lost in the translation!!",
+        "body"  : {
+            "title" : "I'm lost in the transaction!!"
+        }
+    },
+    "500" : {
+        "title" : "Internal Server Error!!",
+        "body"  : {
+            "title" : "Internal Server Error!!"
+        }
+    },
+    "index" : {
+        "title" : "HOME",
+        "body"  : {
+            "current"       : "HOME",
+            "headline"      : "最新記事",
+            "lang"          : "言語",
+            "day"           : "掲載日",
+            "title"         : "タイトル",
+            "source"        : "サイト名",
+            "date"          : "日付",
+            "format"        : "フォーマット",
+            "tour"          : "トーナメント",
+            "latest_tours"  : "最新大会結果",
+            "popular_decks" : "ポピュラー(過去１年)",              
+            "constructed"   : "構築",
+            "standard"      : "スタンダード",
+            "modern"        : "モダン",
+            "legacy"        : "レガシー",
+            "vintage"       : "ヴィンテージ",
+            "commander"     : "統率者",
+            "other"         : "その他",
+            "count"         : "カウント",
+            "deck_name"     : "デッキ名"
+        }
+    },
+    "about" : {
+        "title"       : "サイトについて",
+        "keywords"    : "magic記事,mtg記事,マジック記事,戦術,戦略,デッキリスト,大会結果,mtg国内記事,マジック国内記事,mtg海外記事,マジック海外記事",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "current"           : "サイトについて",
+            "credit"            : "Credits",
+            "credit_text_1"     : "This site was designed and created by Billy to have better understanding of Mtg and to improve technical skills.",
+            "credit_text_2"     : "Obtained some conceptual ideas from my friends, Erik Landriz’s web site, mtgstats.com.",
+            "credit_text_3"     : "Special Thanks to Erik Landriz, Tripper Gipson, and Kadota.",
+            "crawler"           : "Crawling",
+            "crawl_text_1"      : "Each Articles: crawled every 6 hours starting midnight.",
+            "crawl_text_2"      : "Magic Online tournament data: crawled every 6 hours starting midnight.",
+            "crawl_text_3"      : "The oldest MO tournament result comes from year of 2014",
+            "profile"           : "profiles",
+            "profile_text_1"    : "Naoto, 'Billy', Aranami - Web application engineer",
+            "profile_text_3"    : "1. Louisiana state champion and top8",
+            "profile_text_4"    : "2. Two time two-headed Giant Louisiana State championship runnerup",
+            "profile_text_5"    : "3. Founder of Black-white persisting token",
+            "profile_text_6"    : "4. Number of ptq top8’s in USA South",
+            "profile_text_7"    : "5. Bad relationship with GPs",
+            "contact"           : "Contact",
+            "contact_text_1"    : "Feel free to contact me for questions, feedbacks, etc.",
+            "contact_text_2"    : "billysafin@gmail.com",
+            "wizards"           : "Wizards' Copy Rights",
+            "w_copy_rights"     : "All original content on this page is © 2017 MTG Statistics and may not be used or reproduced without consent. Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC. © 2017 Wizards. All rights reserved. MTG Statistics is not affiliated with, endorsed, sponsored, or specifically approved by Wizards of the Coast LLC. MTG Statistics may use the trademarks and other intellectual property of Wizards of the Coast LLC, which is permitted under Wizards' Digital Marketing Asset Policy. MAGIC: THE GATHERING® is a trademark[s] of Wizards of the Coast. For more information about Wizards of the Coast or any of Wizards' trademarks or other intellectual property, please visit their website at (www.wizards.com).",
+            "coming_soon"       : "Coming Soon",
+            "coming_soon_1"     : "Draft Simulator",
+            "coming_soon_2"     : "Draft Simulator With Ai",
+            "coming_soon_3"     : "Image Recognition Using Ai and Returns Price etc.",
+            "coming_soon_4"     : "Smartphone App",
+            "coming_soon_5"     : "Price Guide",
+            "coming_soon_6"     : "English"
+        }
+    },
+    "general_articles" : {
+        "title"       : "記事総合",
+        "keywords"    : "magic記事,mtg記事,マジック記事,戦術,戦略,デッキリスト,大会結果,mtg国内記事,マジック国内記事,mtg海外記事,マジック海外記事",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "current"               : "記事総合",
+            "lang"                  : "言語",
+            "day"                   : "掲載日",
+            "title"                 : "タイトル",
+            "source"                : "サイト名",
+            "to_past"               : "過去記事検索へ",
+            "all"                   : "全言語記事",
+            "japanese"              : "日本語記事",
+            "english"               : "英語記事",
+            "all_small"             : "全",
+            "japanese_small"        : "日",
+            "english_small"         : "英",
+            "total_number_articles" : "全記事リンク合計",
+            "date_from"             : "FROM",
+            "date_to"               : "TO",
+            "search_button"         : "絞り込み",
+            "seach_div"             : "過去記事絞り込み"   
+        }
+    },
+    "constructed" : {
+        "title"       : "全構築デッキ",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "current"                   : "全構築デッキ",
+            "standard"                  : "スタンダード",
+            "modern"                    : "モダン",
+            "legacy"                    : "レガシー",
+            "vintage"                   : "ヴィンテージ",
+            "date"                      : "日付",
+            "tournament"                : "トーナメント",
+            "standard_details"          : "スタンダード詳細",
+            "modern_details"            : "モダン詳細",
+            "legacy_details"            : "レガシー詳細",
+            "vintage_details"           : "ヴィンテージ詳細",
+            "seach_div"                 : "記事絞り込み",
+            "all"                       : "全言語記事",
+            "japanese"                  : "日本語記事",
+            "english"                   : "英語記事",
+            "total_number_articles"     : "全記事リンク合計",
+            "date_from"                 : "掲載日 FROM",
+            "date_to"                   : "掲載日 TO",
+            "view_per_page"             : "表示件数",
+            "search_button"             : "絞り込み",
+             "current"                  : "記事総合",
+            "lang"                      : "言語",
+            "day"                       : "掲載日",
+            "title"                     : "タイトル",
+            "source"                    : "サイト名"
+        }
+    },
+    "constructed_standard" : {
+        "title"       : "スタンダード構築",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "standard"                  : "スタンダード",
+            "date"                      : "日付",
+            "tournament"                : "トーナメント",
+            "standard_details"          : "スタンダード詳細",
+            "deck_breakdown"            : "デッキ割合",
+            "top_five_decks"            : "最も使われてるデッキTOP5(使用数と上位５位内での割合)",
+            "current_meta"              : "直近1ヶ月のメタ状況",
+            "deck_name"                 : "デッキ名",
+            "total_number_played_deck"  : "使用数",
+            "percent_played_deck"       : "使用割合",
+            "all_stats"                 : "デッキ分布詳細表示",
+            "all_articles"              : "一覧へ"
+        }
+    },
+    "constructed_modern" : {
+        "title"       : "モダン構築",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "modern"                    : "モダン",
+            "date"                      : "日付",
+            "tournament"                : "トーナメント",
+            "modern_details"            : "モダン詳細",
+            "deck_breakdown"            : "デッキ割合",
+            "top_five_decks"            : "最も使われてるデッキTOP5(使用数と上位５位内での割合)",
+            "deck_name"                 : "デッキ名",
+            "total_number_played_deck"  : "使用数",
+            "percent_played_deck"       : "使用割合",
+            "current_meta"              : "直近1ヶ月のメタ状況",
+            "all_stats"                 : "デッキ分布詳細表示",
+            "all_articles"              : "一覧へ"
+        }
+    },
+    "constructed_legacy" : {
+        "title"       : "レガシー構築",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "legacy"                    : "レガシー",
+            "date"                      : "日付",
+            "tournament"                : "トーナメント",
+            "legacy_details"            : "レガシー詳細",
+            "deck_breakdown"            : "デッキ割合",
+            "top_five_decks"            : "最も使われてるデッキTOP5(使用数と上位５位内での割合)",
+            "deck_name"                 : "デッキ名",
+            "total_number_played_deck"  : "使用数",
+            "percent_played_deck"       : "使用割合",
+            "all_stats"                 : "デッキ分布詳細表示",
+            "current_meta"              : "直近1ヶ月のメタ状況",
+            "all_articles"              : "一覧へ"
+        }
+    },
+     "constructed_vintage" : {
+        "title"       : "ヴィンテージ構築",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "vintage"                   : "ヴィンテージ",
+            "date"                      : "日付",
+            "tournament"                : "トーナメント",
+            "vintage_details"           : "ヴィンテージ詳細",
+            "deck_breakdown"            : "デッキ割合",
+            "top_five_decks"            : "最も使われてるデッキTOP5(使用数と上位５位内での割合)",
+            "deck_name"                 : "デッキ名",
+            "total_number_played_deck"  : "使用数",
+            "percent_played_deck"       : "使用割合",
+            "current_meta"              : "直近3ヶ月のメタ状況",
+            "all_stats"                 : "デッキ分布詳細表示",
+            "all_articles"              : "リストへ"
+        }
+    },
+    "constructed_tour_detail" : {
+        "title"       : "構築トーナメント詳細",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "format"   : "フォーマット",
+            "date"     : "日付",
+            "location" : "開催場所",
+            "rounds"   : "ラウンド数",
+            "rank"     : "順位",
+            "omwp"     : "omwp",
+            "gwp"      : "gwp",
+            "ogwp"     : "ogwp"
+        }
+    },
+    "tournament_list" : {
+        "title" : "トーナメントリスト",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "date"                      : "日付",
+            "tournament"                : "トーナメント",
+            "format"                    : "フォーマット",
+            "standard"                  : "スタンダード",
+            "modern"                    : "モダン",
+            "legacy"                    : "レガシー",
+            "vintage"                   : "ヴィンテージ",
+            "other"                     : "その他",
+            "search_button"             : "絞り込み",
+            "date_from"                 : "FROM",
+            "date_to"                   : "TO",
+            "seach_div"                 : "大会結果検索",
+            "key_word"                  : "キーワード"
+        }
+    },
+    "deck_detail" : {
+        "title" : "デッキ詳細情報",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "date"                      : "日付",
+            "tournament"                : "トーナメント",
+            "amount"                    : "使用数",
+            "played"                    : "使用枚数",
+            "card_name"                 : "カード名",
+            "percent_of"                : "%のプレイヤーが",
+            "connection"                : "に",
+            "how_many"                  : "枚採用しています",
+            "main"                      : "メインボード",
+            "side"                      : "サイドボード",
+            "see_the_most_played_cards" : "最も使われているカードを見る"
+        }
+    },
+    "other_formats" : {
+        "title"       : "その他",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "vintage"                   : "その他",
+            "date"                      : "日付",
+            "tournament"                : "トーナメント",
+            "otherformat_details"       : "その他詳細",
+            "deck_breakdown"            : "デッキ割合",
+            "top_five_decks"            : "最も使われてるデッキTOP5(使用数と上位５位内での割合)",
+            "deck_name"                 : "デッキ名",
+            "total_number_played_deck"  : "使用数",
+            "percent_played_deck"       : "使用割合",
+            "current_meta"              : "直近3ヶ月のメタ状況",
+            "all_stats"                 : "デッキ分布詳細表示",
+            "all_articles"              : "リストへ"
+        }
+    },
+    "draft_simulator" : {
+        "title"       : "ドラフトシミュレーター",
+        "keywords"    : "mtg大会結果, Magic Online, MO, standard, modern, legacy, vintage, decklists, players",
+        "description" : "マジック・ザ・ギャザリング(MTG)の総合情報サイト。MTGに関わる大会結果や戦術・戦略などの国内外の記事一覧を提供。",
+        "body"        : {
+            "pack_one"              : "パック #1",
+            "pack_two"              : "パック #2",
+            "pack_three"            : "パック #3",
+            "start"                 : "開始",
+            "check_pick_weight"     : "点数表",
+            "see_card_list"         : "カードリスト"
+        }
+    }
+}

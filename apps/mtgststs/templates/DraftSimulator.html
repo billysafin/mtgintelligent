@@ -1,0 +1,54 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+<div class="spacing-bottom bg-white">
+  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <form action="/{{lang}}/draft_simulator/drafting/" method="post" class="form-inline">
+      <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+        {{body.pack_one}}
+        <select name="pack_one" class="form-control">
+          {%- for edition in editions -%}
+            <option value="{{edition.id}}">{%- if lang == 'en' -%}{{edition.name}}{% else %}{{edition.name_jp}}{% endif %}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+        {{body.pack_two}}
+        <select name="pack_two" class="form-control">
+          {%- for edition in editions -%}
+            <option value="{{edition.id}}">{%- if lang == 'en' -%}{{edition.name}}{% else %}{{edition.name_jp}}{% endif %}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+        {{body.pack_three}}
+        <select name="pack_three" class="form-control">
+          {%- for edition in editions -%}
+            <option value="{{edition.id}}">{%- if lang == 'en' -%}{{edition.name}}{% else %}{{edition.name_jp}}{% endif %}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <input class="btn btn-default" type="submit" value="{{body.start}}">
+    </form>
+  </div>
+  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <form action="/{{lang}}/draft_simulator/pick_weight/" method="post" class="form-inline">
+      {{body.check_pick_weight}}
+      <select name="pick_weight" class="form-control">
+        {%- for edition in editions -%}
+          <option value="{{edition.id}}">{%- if lang == 'en' -%}{{edition.name}}{% else %}{{edition.name_jp}}{% endif %}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <form action="/{{lang}}/draft_simulator/card_list/" method="post" class="form-inline">
+      {{body.see_card_list}}
+      <select name="card_list" class="form-control">
+        {%- for edition in editions -%}
+          <option value="{{edition.id}}">{%- if lang == 'en' -%}{{edition.name}}{% else %}{{edition.name_jp}}{% endif %}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+</div>
+{% endblock %}

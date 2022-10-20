@@ -1,0 +1,154 @@
+{% block side_menu %}
+<div class="spacing-bottom bg-white">
+  <div class="thumbnail">
+    <div class="by-site">
+      <h5 class="bg-primary">{{side_menu.search_by_sites}}</h5>
+      <p data-lang="en" class="mouse-on-pointer expand-side-sites">
+        <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+        {{side_menu.english}}
+      </p>
+      <div id="en-sites" class="side-sites-div" style="display:none;">
+        <table class="table table-striped table-hover">
+          <tbody>
+            <form id="form-en" action="/{{lang}}/general_articles/?act=past_list&sub=seach" method="post" class="form-inline">
+              <div class="form-group spacing-bottom clear_both w100">
+                <select data-form="form-en" name="sites" class="w100 site-selector">
+                  <option value="" country_id="" class="sites_op">
+                    {{side_menu.please_select}}
+                  </option>
+                  {%- for each in all_article_sites.en -%}
+                    <option value="{{each.id}}" country_id="{{each.country_id}}" class="sites_op">
+                      {{each.site_name}}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </form>
+          </tbody>
+        </table>
+      </div>
+      <p data-lang="jp" class="mouse-on-pointer expand-side-sites">
+        <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+        {{side_menu.japanese}}
+      </p>
+      <div id="jp-sites" class="side-sites-div" style="display:none;">
+        <table class="table table-striped table-hover">
+          <tbody>
+            <form id="form-jp" action="/{{lang}}/general_articles/?act=past_list&sub=seach" method="post" class="form-inline">
+              <div class="form-group spacing-bottom clear_both w100">
+                <select data-form="form-jp" name="sites" class="w100 site-selector">
+                  <option value="" country_id="" class="sites_op">
+                    {{side_menu.please_select}}
+                  </option>
+                  {%- for each in all_article_sites.jp -%}
+                    <option value="{{each.id}}" country_id="{{each.country_id}}" class="sites_op">
+                      {{each.site_name}}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </form>
+          </tbody>
+        </table>
+      </div>
+      <a href="/{{lang}}/general_articles/">
+        <p>
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          {{side_menu.general}}
+        </p>
+      </a>
+      <a href="/{{lang}}/general_articles/?act=past_list">
+        <p>
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          {{side_menu.pastarticles}}
+        </p>
+      </a>
+    </div>
+    <div class="by-format">
+      <h5 class="bg-primary">{{side_menu.search_by_format}}</h5>
+      <a href="/{{lang}}/constructed/">
+        <p>
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          {{side_menu.all_formats}}
+        </p>
+      </a>
+      <a href="/{{lang}}/constructed_standard/">
+        <p>
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          {{side_menu.standard}}
+        </p>
+      </a>
+      <a href="/{{lang}}/constructed_modern/">
+        <p>
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          {{side_menu.modern}}
+        </p>
+      </a>
+      <a href="/{{lang}}/constructed_legacy/">
+        <p>
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          {{side_menu.legacy}}
+        </p>
+      </a>
+      <a href="/{{lang}}/constructed_vintage/">
+        <p>
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          {{side_menu.vintage}}
+        </p>
+      </a>
+      <!--
+      <a href="/{{lang}}/other_formats/">
+        <p>
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          {{side_menu.others}}
+        </p>
+      </a>
+      -->
+    </div>
+    <div class="by-results">
+      <h5 class="bg-primary">{{side_menu.tournament_results}}</h5>
+      <ol class="pl12px">
+        {%- for each in latest_five_tours -%}
+        <li class="dotted_bottom spacing-bottom">
+          <a href="/{{lang}}/{{each.format}}_tour_detail/?act=dert&tour={{each.id}}">
+            {{each.name}}
+          </a>
+        </li>
+        {% endfor %}
+        <li class="no-list pb12px">
+          <div class="to_right float-right">
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            <a href="/{{lang}}/tournament_list/?act=allformat">{{side_menu.resuls_all}}</a>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="mini-sq-banner mb12">
+    <script language="javascript" src="//ad.jp.ap.valuecommerce.com/servlet/jsbanner?sid=3369092&pid=885242078"></script>
+    <noscript>
+      <a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3369092&pid=885242078" target="_blank" rel="nofollow">
+        <img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3369092&pid=885242078" border="0">
+      </a>
+    </noscript>
+  </div>
+  <div class="mini-sq-banner">
+    <a href="//px.a8.net/svt/ejp?a8mat=2ZJ0P5+4FK6WI+24JA+65ME9" target="_blank" rel="nofollow">
+    <img border="0" width="234" height="60" alt="" src="//www25.a8.net/svt/bgt?aid=180606281268&wid=001&eno=01&mid=s00000009919001034000&mc=1"></a>
+    <img border="0" width="1" height="1" src="//www11.a8.net/0.gif?a8mat=2ZJ0P5+4FK6WI+24JA+65ME9" alt="">
+  </div>
+  <div>
+    <a href="//px.a8.net/svt/ejp?a8mat=2ZJ29S+3O692Q+1892+6B70H" target="_blank" rel="nofollow">
+    <img border="0" width="234" height="60" alt="" src="//www27.a8.net/svt/bgt?aid=180608320222&wid=001&eno=01&mid=s00000005735001060000&mc=1"></a>
+    <img border="0" width="1" height="1" src="//www16.a8.net/0.gif?a8mat=2ZJ29S+3O692Q+1892+6B70H" alt="">
+  </div>
+  <div class="mini-sq-banner mb12">
+    <script language="javascript" src="//ad.jp.ap.valuecommerce.com/servlet/jsbanner?sid=3369092&pid=885245224"></script>
+    <noscript>
+      <a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3369092&pid=885245224" target="_blank" rel="nofollow">
+        <img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3369092&pid=885245224" border="0">
+      </a>
+    </noscript>
+  </div>
+</div>
+{% endblock %}

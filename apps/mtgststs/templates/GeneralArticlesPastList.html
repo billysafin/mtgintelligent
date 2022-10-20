@@ -1,0 +1,143 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+  <div class="spacing-bottom bg-white">
+    <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+      <div class="thumbnail spacing-bottom-normal bg-white">
+        <div id="tabContent" class="tab-content">
+          <div class="spacing-bottom">
+            <button type="button" id="past-search-big" class="btn btn-info">{{body.seach_div}}</button>
+            <button type="button" id="past-search-small" class="btn btn-info">{{body.seach_div}}</button>
+          </div>
+          <div class="spacing-bottom">
+            <div id="past-article–search-small">
+              <form action="/{{lang}}/general_articles/?act=past_list&sub=seach" method="post" class="form-inline">
+                <div class="form-group spacing-bottom float-left spacing-right inline w100">
+                  <div class="spacing-bottom w100">
+                    <div>
+                      <label for="date-from">{{body.date_from}}</label>
+                       ~ 
+                      <label for="date-to" id="date-to-label">{{body.date_to}}</label>
+                      <input type="text" name="date_from" id="date-from" class="datetimer" placeholder="1999-01-01" />
+                       ~ 
+                      <input type="text" name="date_to" id="date-to" class="datetimer" placeholder="1999-01-02" />
+                    </div>
+                    <div class="mt12">
+                      {%- for lang in langs -%}
+                        {%- if lang.name != null and lang.name != 'unknown' and lang.name != False -%} 
+                          <div class="checkbox spacing-top">
+                            <label>
+                              <input type="checkbox" class="lang" name="lang" value="{{lang.id}}">
+                              {{lang.name}}
+                            </label>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    <div id="sites-div" class="form-group spacing-bottom clear_both w100">
+                      <select id="sites" name="sites" multiple="multiple"></select>
+                    </div>
+                  </div>
+                  <div class="mt12">
+                    <div>
+                      <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary">
+                          <input type="radio" autocomplete="off" name="view_per_page_selected" value="10">10
+                        </label>
+                        <label class="btn btn-primary active">
+                          <input type="radio" autocomplete="off" name="view_per_page_selected" value="25" checked>25
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" autocomplete="off" name="view_per_page_selected" value="50">50
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" autocomplete="off" name="view_per_page_selected" value="100">100
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="to_center mt12">
+                    <input class="btn btn-default w50" type="submit" value="{{body.search_button}}">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div id="past-article–search-big">
+              <form action="/{{lang}}/general_articles/?act=past_list&sub=seach" method="post" class="form-inline">
+                <div class="form-group spacing-bottom float-left spacing-right inline w100">
+                  <div class="spacing-bottom display-flex w100 justify-even ali-center">
+                    <div>
+                      <label for="date-from">{{body.date_from}}</label>
+                       ~ 
+                      <label for="date-to" id="date-to-label">{{body.date_to}}</label>
+                      <input type="text" name="date_from" id="date-from" class="datetimer" placeholder="1999-01-01" />
+                       ~ 
+                      <input type="text" name="date_to" id="date-to" class="datetimer" placeholder="1999-01-02" />
+                    </div>
+                    <div>
+                      <div class="btn-group alignment" data-toggle="buttons-radio">
+                        <button type="button" class="btn btn-info sql_limit" name="10">10</button>
+                        <button type="button" class="btn btn-info active sql_limit" name="25">25</button>
+                        <button type="button" class="btn btn-info sql_limit" name="50">50</button>
+                        <button type="button" class="btn btn-info sql_limit" name="100">100</button>
+                        <input type="hidden" id="alignment" name="view_per_page_selected" value="25" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="inline">
+                    {%- for lang in langs -%}
+                      {%- if lang.name != null and lang.name != 'unknown' and lang.name != False -%} 
+                         <div class="checkbox spacing-top">
+                           <label>
+                             <input type="checkbox" class="lang" name="lang" value="{{lang.id}}">
+                             {{lang.name}}
+                           </label>
+                         </div>
+                       {% endif %}
+                     {% endfor %}
+                  </div>
+                </div>
+                <div id="sites-div" class="form-group spacing-bottom clear_both w100">
+                  <select id="sites" name="sites" multiple="multiple"></select>
+                </div>
+                <div class="to_center mt12">
+                  <input class="btn btn-default w50" type="submit" value="{{body.search_button}}">
+                </div>
+              </form>
+              <div>
+                {%- for site in sites -%}
+                  <input type="hidden" class="sites_hidden" site_name="{{site.name}}" site_id="{{site.id}}" country_id="{{site.country_id}}" />
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="spacing-bottom clear-both">
+            {%- for each in news -%}
+              {%- if loop.index == 1 or (loop.index - 1) %4 == 0 -%} 
+                <div class="row">
+              {% endif %}
+              <a  click-type="1" href="{{each.link}}" direction-to="outer-site">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                  <div class="thumbnail articles-panel" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                    <img class="sites_logo" src="{{url_for('static', filename='images/site_logos/' + each.image)}}" alt="{{body.source}}" click-type="1" href="{{each.link}}" direction-to="outer-site">
+                    <div class="caption word-wrap">
+                      <h3 class="h3-title" click-type="1" href="{{each.link}}" direction-to="outer-site">{{each.title | truncate(30)}}</h3>
+                      <p class="article-source" click-type="1" href="{{each.link}}" direction-to="outer-site"> 
+                        <img class="lang_flag" src="{{url_for('static', filename='images/national_flags/' + each.prefix + '.png')}}"  click-type="1" href="{{each.link}}" direction-to="outer-site"/>
+                        {{each.published}}
+                      </p>
+                      <p class="article-source" click-type="1" href="{{each.link}}" direction-to="outer-site">{{each.source_from}}</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              {%- if loop.index %4 == 0 -%} 
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="to_right">{{pagination.links}}</nav>
+  </div>
+{% endblock %}

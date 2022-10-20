@@ -1,0 +1,102 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+<div class="spacing-bottom bg-white">
+  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <div class="thumbnail hidden-xs hidden-sm">
+      <a href="/{{lang}}/">
+        <img src="/static/images/latest_articles.jpeg" alt="top logo" />
+      </a>
+    </div>
+    <div class="thumbnail">
+      <div class="caption">
+        <h3 class="bg-primary">{{body.headline}}</h3>
+        <table id="japanese_table" class="table table-striped table-hover table-responsive" width="100%">
+          <colgroup>
+            <col class="hidden-xs hidden-sm" width="7%">
+            <col width="15%">
+            <col width="53%">
+            <col width="25%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th class="hidden-xs hidden-sm">{{body.lang}}</th>
+              <th>{{body.day}}</th>
+              <th>{{body.title}}</th>
+              <th>{{body.source}}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {%- for each in news -%}
+            <tr href="{{each.link}}" click-type="1" direction-to="outer-site">
+              <td class="hidden-xs hidden-sm"><img class="lang_flag" src="{{url_for('static', filename='images/national_flags/' + each.flag_prefix + '.png')}}" /></td>
+              <td>{{each.published}}</td>
+              <td>{{each.title | truncate(30)}}</td>
+              <td>{{each.source_from}}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="thumbnail">
+      <div class="caption">
+        <h3 class="bg-primary">{{body.latest_tours}}</h3>
+        <table class="table table-striped table-hover table-responsive" width="100%">
+          <thead>
+            <tr>
+              <th>{{body.format}}</th>
+              <th class="hidden-xs hidden-sm">{{body.date}}</th>
+              <th>{{body.tour}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for each in tours -%}
+              <tr href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}" click-type="1" direction-to="inner-site">
+                <td>
+                  <span class="{{each.class_label}}">
+                    {{body[each.format]}}
+                  </span>
+                  <span class="visible-xs visible-sm"><br />{{each.date}}</span>
+                </td>
+                <td class="hidden-xs hidden-sm">{{each.date}}</td>
+                <td>{{each.name | truncate(45)}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="thumbnail">
+      <div class="caption">
+        <h3 class="bg-primary">{{body.popular_decks}}</h3>
+        <table class="table table-striped table-hover table-responsive" width="100%">
+          <thead>
+            <tr>
+              <th>
+                {{body.format}}
+                <span class="visible-xs visible-sm"><br />{{body.count}}</span>
+              </th>
+              <th>{{body.deck_name}}</th>
+              <th class="hidden-xs hidden-sm">{{body.count}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for each in popular_decklists -%}
+              <tr href="/{{lang}}/deck_detail/?act=dert&did={{each.id}}" click-type="1" direction-to="outer-inner">
+                <td>
+                  <span class="{{each.class_label}}">
+                    {{body[each.format]}}
+                  </span>
+                  <span class="visible-xs visible-sm"><br />{{body.count}}: {{each.count}}</span>
+                </td>
+                <td>{{each.name | truncate(45)}}</td>
+                <td class="hidden-xs hidden-sm">{{each.count}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

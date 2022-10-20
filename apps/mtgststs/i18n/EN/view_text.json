@@ -1,0 +1,370 @@
+{
+    "app" : {
+        "news_general" : "ニュース総合"
+    },
+    "meta" : {
+        "base_url"    : "https://www.mtgstatistics.com",
+        "title"       : "MTG Statistics",
+        "author"      : "Billy Safin",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG"
+    },
+    "header" : {
+        
+    },
+    "footer" : {
+      "about"           : "About",
+      "contact"         : "Contact",
+      "contact_address" : "billysafin@gmail.com",
+      "lang_switch"     : "Langugage",
+      "ja"              : "日本語",
+      "en"              : "English"
+    },
+    "titles" : {
+        "h1_title" : "MTG Statistics"
+    },
+    "menus" : {
+        "top"         : "Top",
+        "articles"    : "Articles",
+        "results"     : "Seach Tournament Results", 
+        "limited"     : "Limited",
+        "constracted" : "Constructed Decks",
+        "price"       : "Price",
+        "search"      : "Search",
+        "draft"       : "Draft"
+    },
+    "side_menu" : {
+        "search_by_sites"      : "Search by Sites",
+        "tournament_results"   : "tournament Result",
+        "resuls_all"           : "List All",
+        "search_by_format"     : "Search by Formant",
+        "general"              : "Latest",
+        "pastarticles"         : "Past",
+        "english"              : "English",
+        "japanese"             : "Japanese",
+        "all_formats"          : "All Constructed Format",
+        "standard"             : "Standard",
+        "modern"               : "Modern",
+        "extended"             : "Extend",
+        "legacy"               : "Legacy",
+        "vintage"              : "Vintage",
+        "others"               : "Other",
+        "please_select"        : "Please Select"
+    },
+    "sub_menus" : {
+        "home"                 : "HOME",
+        "english"              : "English",
+        "japanese"             : "Japanese",
+        "general"              : "Latest",
+        "pastarticles"         : "Past",
+        "bySet"                : "By Set",
+        "formats"              : "All Constructed Format",
+        "standard"             : "Standard",
+        "modern"               : "Modern",
+        "extended"             : "Extend",
+        "legacy"               : "Legacy",
+        "vintage"              : "Vintage",
+        "others"               : "Other",
+        "price_all"            : "All Prices",
+        "auction"              : "Auctions",
+        "shops"                : "Shops",
+        "search_all"           : "Search All",
+        "search_real_player"   : "Search Player",
+        "search_online_player" : "MO account Search",
+        "search_card"          : "Seach Card",
+        "search_news"          : "Search Articles",
+        "latest"               : "Latest Sets",
+        "a_set_ago"            : "Previous Set",
+        "two_sets_ago"         : "2 Sets Before",
+        "about"                : "About",
+        "to_erik_landriz"      : "To :  My Friend Erik Landriz"
+    },
+    "403" : {
+        "title" : "Sorry. Forbidden fruit!!",
+        "body"  : {
+            "title" : "Sorry. Forbidden fruit!!"
+        }
+    },
+    "404" : {
+        "title" : "Page Not Found!!",
+        "body"  : {
+            "title" : "Page Not Found!!"
+        }
+    },
+    "410" : {
+        "title" : "I'm lost in the translation!!",
+        "body"  : {
+            "title" : "I'm lost in the transaction!!"
+        }
+    },
+    "500" : {
+        "title" : "Internal Server Error!!",
+        "body"  : {
+            "title" : "Internal Server Error!!"
+        }
+    },
+    "index" : {
+        "title" : "HOME",
+        "body"  : {
+            "current"       : "HOME",
+            "headline"      : "Latest",
+            "lang"          : "Langugage",
+            "day"           : "Day",
+            "title"         : "Title",
+            "source"        : "Sites",
+            "date"          : "Date",
+            "format"        : "Format",
+            "tour"          : "Tournament",
+            "latest_tours"  : "Latest Tournaments",
+            "popular_decks" : "Most Popular (the past year)",              
+            "constructed"   : "Constructed",
+            "standard"      : "Standard",
+            "modern"        : "Modern",
+            "legacy"        : "Legacy",
+            "vintage"       : "Vintage",
+            "commander"     : "EDH",
+            "other"         : "Other",
+            "count"         : "Count",
+            "deck_name"     : "Deck Name"
+        }
+    },
+    "about" : {
+        "title"       : "About",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "current"           : "About",
+            "credit"            : "Credits",
+            "credit_text_1"     : "This site was designed and created by Billy to have better understanding of Mtg and to improve technical skills.",
+            "credit_text_2"     : "Obtained some conceptual ideas from my friends, Erik Landriz’s web site, mtgstats.com.",
+            "credit_text_3"     : "Special Thanks to Erik Landriz, Tripper Gipson, and Kadota.",
+            "crawler"           : "Crawling",
+            "crawl_text_1"      : "Each Articles: crawled every 6 hours starting midnight.",
+            "crawl_text_2"      : "Magic Online tournament data: crawled every 6 hours starting midnight.",
+            "crawl_text_3"      : "The oldest MO tournament result comes from year of 2014",
+            "profile"           : "profiles",
+            "profile_text_1"    : "Naoto, 'Billy', Aranami - Web application engineer",
+            "profile_text_3"    : "1. Louisiana state champion and top8",
+            "profile_text_4"    : "2. Two time two-headed Giant Louisiana State championship runnerup",
+            "profile_text_5"    : "3. Founder of Black-white persisting token",
+            "profile_text_6"    : "4. Number of ptq top8’s in USA South",
+            "profile_text_7"    : "5. Bad relationship with GPs",
+            "contact"           : "Contact",
+            "contact_text_1"    : "Feel free to contact me for questions, feedbacks, etc.",
+            "contact_text_2"    : "billysafin@gmail.com",
+            "wizards"           : "Wizards' Copy Rights",
+            "w_copy_rights"     : "All original content on this page is © 2017 MTG Statistics and may not be used or reproduced without consent. Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC. © 2017 Wizards. All rights reserved. MTG Statistics is not affiliated with, endorsed, sponsored, or specifically approved by Wizards of the Coast LLC. MTG Statistics may use the trademarks and other intellectual property of Wizards of the Coast LLC, which is permitted under Wizards' Digital Marketing Asset Policy. MAGIC: THE GATHERING® is a trademark[s] of Wizards of the Coast. For more information about Wizards of the Coast or any of Wizards' trademarks or other intellectual property, please visit their website at (www.wizards.com).",
+            "coming_soon"       : "Coming Soon",
+            "coming_soon_1"     : "Draft Simulator",
+            "coming_soon_2"     : "Draft Simulator With Ai",
+            "coming_soon_3"     : "Image Recognition Using Ai and Returns Price etc.",
+            "coming_soon_4"     : "Smartphone App",
+            "coming_soon_5"     : "Price Guide",
+            "coming_soon_6"     : "English"
+        }
+    },
+    "general_articles" : {
+        "title"       : "Article Top",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "current"               : "Article Top",
+            "lang"                  : "Langugage",
+            "day"                   : "Day",
+            "title"                 : "Title",
+            "source"                : "Sites",
+            "to_past"               : "To Past Articles",
+            "all"                   : "All Langugages",
+            "japanese"              : "Japanese Articles",
+            "english"               : "English Articles",
+            "all_small"             : "All",
+            "japanese_small"        : "En",
+            "english_small"         : "Ja",
+            "total_number_articles" : "Total Articles",
+            "date_from"             : "FROM",
+            "date_to"               : "TO",
+            "search_button"         : "Search",
+            "seach_div"             : "Search Past Articles"   
+        }
+    },
+    "constructed" : {
+        "title"       : "All Constructed Formats",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "current"                   : "All Constructed Decks",
+            "standard"                  : "Standard",
+            "modern"                    : "Modern",
+            "legacy"                    : "Legacy",
+            "vintage"                   : "Vintage",
+            "date"                      : "Date",
+            "tournament"                : "Tournament",
+            "standard_details"          : "Standard Details",
+            "modern_details"            : "Modern Details",
+            "legacy_details"            : "Legacy Details",
+            "vintage_details"           : "Vintage Details",
+            "seach_div"                 : "Search Articles",
+            "all"                       : "All Langugages",
+            "japanese"                  : "Japanese",
+            "english"                   : "English",
+            "total_number_articles"     : "Total Aricles",
+            "date_from"                 : "Date FROM",
+            "date_to"                   : "Date TO",
+            "view_per_page"             : "View per Page",
+            "search_button"             : "Search",
+            "current"                   : "Article Top",
+            "lang"                      : "Langugage",
+            "day"                       : "Day",
+            "title"                     : "Title",
+            "source"                    : "Site"
+        }
+    },
+    "constructed_standard" : {
+        "title"       : "Standard",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "standard"                  : "Standard",
+            "date"                      : "Date",
+            "tournament"                : "Tournament",
+            "standard_details"          : "Standard Details",
+            "deck_breakdown"            : "Break Down",
+            "top_five_decks"            : "Top5 Most Popular Decks",
+            "current_meta"              : "One Month Meta Break Down",
+            "deck_name"                 : "Deck Title",
+            "total_number_played_deck"  : "Total Played",
+            "percent_played_deck"       : "Percent Played",
+            "all_stats"                 : "Meta Break Down Details",
+            "all_articles"              : "To the List"
+        }
+    },
+    "constructed_modern" : {
+        "title"       : "モダン構築",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "modern"                    : "Modern",
+            "date"                      : "Date",
+            "tournament"                : "Tournament",
+            "modern_details"            : "Modern Details",
+            "deck_breakdown"            : "Break Down",
+            "top_five_decks"            : "Top5 Most Popular Decks",
+            "current_meta"              : "One Month Meta Break Down",
+            "deck_name"                 : "Deck Title",
+            "total_number_played_deck"  : "Total Played",
+            "percent_played_deck"       : "Percent Played",
+            "all_stats"                 : "Meta Break Down Details",
+            "all_articles"              : "To the List"
+        }
+    },
+    "constructed_legacy" : {
+        "title"       : "Legacy",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "legacy"                    : "Legacy",
+            "date"                      : "Date",
+            "tournament"                : "Tournament",
+            "legacy_details"            : "Legacy Details",
+            "deck_breakdown"            : "Break Down",
+            "top_five_decks"            : "Top5 Most Popular Decks",
+            "current_meta"              : "One Month Meta Break Down",
+            "deck_name"                 : "Deck Title",
+            "total_number_played_deck"  : "Total Played",
+            "percent_played_deck"       : "Percent Played",
+            "all_stats"                 : "Meta Break Down Details",
+            "all_articles"              : "To the List"
+        }
+    },
+     "constructed_vintage" : {
+        "title"       : "Vintage",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "vintage"                   : "vintage",
+            "date"                      : "Date",
+            "tournament"                : "Tournament",
+            "vintage_details"           : "Vintage Details",
+            "deck_breakdown"            : "Break Down",
+            "top_five_decks"            : "Top5 Most Popular Decks",
+            "current_meta"              : "One Month Meta Break Down",
+            "deck_name"                 : "Deck Title",
+            "total_number_played_deck"  : "Total Played",
+            "percent_played_deck"       : "Percent Played",
+            "all_stats"                 : "Meta Break Down Details",
+            "all_articles"              : "To the List"
+        }
+    },
+    "constructed_tour_detail" : {
+        "title"       : "Tournament Details",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "format"   : "Format",
+            "date"     : "Date",
+            "location" : "Place",
+            "rounds"   : "Rounds",
+            "rank"     : "Rank",
+            "omwp"     : "omwp",
+            "gwp"      : "gwp",
+            "ogwp"     : "ogwp"
+        }
+    },
+    "tournament_list" : {
+        "title" : "Tournament List",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "date"                      : "Date",
+            "tournament"                : "Tournament",
+            "format"                    : "Format",
+            "standard"                  : "Standard",
+            "modern"                    : "Modern",
+            "legacy"                    : "Legacy",
+            "vintage"                   : "Vintage",
+            "other"                     : "Other",
+            "search_button"             : "Search",
+            "date_from"                 : "FROM",
+            "date_to"                   : "TO",
+            "seach_div"                 : "tournament Results",
+            "key_word"                  : "Keyword"
+        }
+    },
+    "deck_detail" : {
+        "title" : "Deck Details",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "date"                      : "Date",
+            "tournament"                : "Tournamrnt",
+            "amount"                    : "Total amount",
+            "played"                    : "Total Pkayed",
+            "card_name"                 : "Card Name",
+            "percent_of"                : "5 of players played",
+            "connection"                : "",
+            "how_many"                  : "",
+            "main"                      : "Main Board",
+            "side"                      : "Side Board",
+            "see_the_most_played_cards" : "See Most Played Stats"
+        }
+    },
+    "other_formats" : {
+        "title"       : "Other",
+        "keywords"    : "magic,card games,mtg,gathering,trading,card game,MTG,Mtg,statistics",
+        "description" : "Magic The Gathering (MTG) general information site. From domestic to overseas site articles etc. We will add functions, such as prices, MO results and statistical functions related to MTG",
+        "body"        : {
+            "vintage"                   : "Other",
+            "date"                      : "Date",
+            "tournament"                : "Tournament",
+            "otherformat_details"       : "Other Details",
+            "deck_breakdown"            : "Break Down",
+            "top_five_decks"            : "Top5 Most Popular Decks",
+            "current_meta"              : "One Month Meta Break Down",
+            "deck_name"                 : "Deck Title",
+            "total_number_played_deck"  : "Total Played",
+            "percent_played_deck"       : "Percent Played",
+            "all_stats"                 : "Meta Break Down Details",
+            "all_articles"              : "To the List"
+        }
+    }
+}

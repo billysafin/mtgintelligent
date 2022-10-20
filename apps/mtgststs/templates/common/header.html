@@ -1,0 +1,22 @@
+{%- block header -%}
+<div class="pt12">
+  <div class="show-on-pc-block mb12">
+    <a href="/{{lang}}/" class="navbar-brand" header="header">
+      <img alt="brand" class="brand_logo_header" src="{{'static/images/site_logo_with_title.png'|versioned}}" />
+    </a>
+    <div class="to_right float-right">
+      {%- include "./common/api.html" -%}
+    </div>
+    <div class="to_right float-right">
+      {%- include "./common/api_2.html" -%}
+    </div>
+  </div>
+  <div class="show-on-smp-block">
+    {% include "./common/smp-menu.html" %}
+  </div>
+  <div class="clear-both"></div>
+</div>
+<div class="show-on-pc-block">
+  {% include "./common/pc-menu.html" %}
+</div>
+{% endblock %}

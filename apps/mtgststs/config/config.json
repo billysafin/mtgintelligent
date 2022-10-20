@@ -1,0 +1,25 @@
+{
+    "db" : {
+        "SQLALCHEMY_DATABASE_URI" : "mysql://root:mtgstats@192.168.33.20",
+        "SQLALCHEMY_BINDS" : {
+            "info" : "mysql://root:mtgstats@192.168.33.20/scrapy",
+            "log" : "mysql://root:mtgstats@192.168.33.20/log"
+        },
+        "SQLALCHEMY_ECHO" : "True",
+        "SQLALCHEMY_RECORD_QUERIES" : "enable",
+        "SQLALCHEMY_NATIVE_UNICODE" : "utf8",
+        "SQLALCHEMY_TRACK_MODIFICATIONS" : "True"
+    },
+    "BASE_DIR" : "/var/www/apps/",
+    "GEO_ACCEPT" : {
+        "ja" : "True",
+        "en" : "True"
+    },
+    "JAPANESE_IP" : "106.154.106.160",
+    "errors" : {
+        "404" : "True",
+        "500" : "True"
+    },
+    "DOMAIN" : "mtgstatistics.com",
+    "CONOHA_STORAGE_CARDIMG_URL" : "https://object-storage.tyo1.conoha.io/v1/nc_b0befee2309143959b2d2ec5ce40c418/mtg_public/"
+}

@@ -1,0 +1,105 @@
+{%- extends "./common/base.html" -%}
+{%- block content -%}
+  <div class="spacing-bottom bg-white">
+    <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+      <div class="thumbnail spacing-bottom-normal bg-white">
+        <div id="tabContent" class="tab-content">
+          <div class="spacing-bottom">
+            <button type="button" id="tour-search-botton" class="btn btn-info">{{body.seach_div}}</button>
+          </div>
+          <div class="spacing-bottom">
+            <div id="tour–search">
+              <form action="/{{lang}}/tournament_list/?act=allsearch" method="post" class="form-inline">
+                <div class="form-group spacing-bottom float-left spacing-right inline w100">
+                  <div>
+                    <label for="for" class="spacing-right">{{body.format}}</label>
+                    <div class="radio-inline">
+                      <input type="radio" value="1" name="for" id="standard" {%- if search.format == 1 -%}checked="checked"{% endif %}>
+                      <label for="standard" {%- if search.format == 1 -%}class="active"{% endif -%}>{{body.standard}}</label>
+                    </div>
+                    <div class="radio-inline">
+                      <input type="radio" value="2" name="for" id="modern" {%- if search.format == 2 -%}checked="checked"{% endif %}>
+                      <label for="modern" {% if search.format == 2 %}class="active"{% endif %}>{{body.modern}}</label>
+                    </div>
+                    <div class="radio-inline">
+                      <input type="radio" value="3" name="for" id="legacy" {%- if search.format == 3 -%}checked="checked"{% endif %}>
+                      <label for="legacy" {% if search.format == 3 %}class="active"{% endif %}>{{body.legacy}}</label>
+                    </div>
+                    <div class="radio-inline">
+                      <input type="radio" value="4" name="for" id="vintage" {%- if search.format == 4 -%}checked="checked"{% endif %}>
+                      <label for="vintage" {%- if search.format == 4 -%}class="active"{% endif %}>{{body.vintage}}</label>
+                    </div>
+                  </div>
+                  <div>
+                    <label for="tour_keywords" class="spacing-right">{{body.key_word}}</label>
+                    <input id="tour_keywords_input" type="text" name="tour_keywords" value="{{search.tour_keywords if search.tour_keywords != None else ''}}" placeholder="Keywords"/>
+                  </div>
+                  <div class="spacing-bottom display-flex w100 justify-even ali-center">
+                    <div>
+                      <label for="date-from">{{body.date_from}}</label>
+                       ~ 
+                      <label for="date-to" id="date-to-label">{{body.date_to}}</label>
+                      <input type="text" name="date_from" id="date-from" class="datetimer" value="{{search.date_from if search.date_from != None else ''}}" placeholder="1999-01-01" />
+                       ~ 
+                      <input type="text" name="date_to" id="date-to" class="datetimer" value="{{search.date_to if search.date_to != None else ''}}" placeholder="1999-01-02" />
+                    </div>
+                    <div>
+                      <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary">
+                          <input type="radio" autocomplete="off" name="view_per_page_selected" value="10">10
+                        </label>
+                        <label class="btn btn-primary active">
+                          <input type="radio" autocomplete="off" name="view_per_page_selected" value="25" checked>25
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" autocomplete="off" name="view_per_page_selected" value="50">50
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" autocomplete="off" name="view_per_page_selected" value="100">100
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="to_center mt12">
+                  <input class="btn btn-default w50" type="submit" value="{{body.search_button}}">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="spacing-bottom">
+            <table class="table table-striped table-hover table-responsive" width="100%">
+              <colgroup>
+                <col width="20%">
+                <col width="20%">
+                <col width="60%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>{{body.format}}</th>
+                  <th class="hidden-xs hidden-sm">{{body.date}}</th>
+                  <th>{{body.tournament}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for each in list -%}
+                  <tr href="/{{lang}}/constructed_tour_detail/?act=dert&tour={{each.id}}" click-type="1" direction-to="inner-site">
+                    <td>
+                      <span class="{{each.class_label}}">
+                        {{body[each.format]}}
+                      </span>
+                      <span class="visible-xs visible-sm"><br />{{each.start}}</span>
+                    </td>
+                    <td class="hidden-xs hidden-sm">{{each.date}}</td>
+                    <td>{{each.name}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="to_right">{{pagination.links}}</nav>
+  </div>
+{% endblock %}

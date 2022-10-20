@@ -1,0 +1,9 @@
+User-Agent:*
+Disallow:/static/
+user-agent: Baiduspider
+Crawl-delay: 600
+user-agent: BaiduImagespider
+Crawl-delay: 600
+user-agent: BaiduMobaider
+Crawl-delay: 600
+Sitemap:http://www.
